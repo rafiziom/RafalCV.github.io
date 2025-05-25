@@ -1,86 +1,112 @@
 /* ----- Globalne Ustawienia i Zmienne Kolorów ----- */
 :root {
-    --primary-blue: #005f73; /* Ciemniejszy niebieski */
-    --secondary-blue: #0a9396; /* Średni niebieski */
-    --light-blue: #94d2bd; /* Jasny niebieski / turkusowy */
-    --pale-blue: #e9f5f4; /* Bardzo jasny niebieski na tła kart */
-    --accent-color: #ee9b00; /* Akcentowy - opcjonalnie */
-    --text-color-dark: #333;
-    --text-color-light: #ffffff;
-    --bg-color-main: #f8f9fa; /* Tło prawej kolumny */
+    /* Główna paleta niebieskich odcieni */
+    --primary-blue: #0a3d62;   /* Głęboki, ciemny niebieski dla tła sidebara i głównych akcentów */
+    --secondary-blue: #1e90ff; /* Jaśniejszy, żywszy niebieski dla nagłówków, linków, akcentów kart */
+    --light-blue: #87cefa;    /* Jasny błękit dla subtelnych elementów, linii czasu */
+    --pale-blue-bg: #f0f8ff;  /* Bardzo jasny, prawie biały niebieski dla tła kart w prawej kolumnie */
+
+    /* Kolory tekstu */
+    --text-color-dark: #333333; /* Ciemnoszary dla głównego tekstu - lepszy niż czarny */
+    --text-color-light: #f8f9fa; /* Bardzo jasny dla tekstu na ciemnych tłach */
+    --text-color-medium: #555555; /* Średnio szary dla mniej ważnych informacji */
+
+    /* Inne */
+    --bg-color-main: #ffffff;      /* Białe tło prawej kolumny dla maksymalnego kontrastu */
+    --bg-color-page: #e9ecef;    /* Jasnoszare tło całej strony */
     --border-color: #dee2e6;
-    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --card-shadow: 0 6px 18px rgba(0, 50, 100, 0.12); /* Ładniejszy, bardziej rozproszony cień */
+    --card-shadow-hover: 0 8px 25px rgba(0, 50, 100, 0.18); /* Cień przy najechaniu */
 }
 
 body {
-    font-family: 'Arial', sans-serif; /* Możesz zmienić na inną, np. 'Lato', 'Open Sans' */
+    font-family: 'Open Sans', 'Arial', sans-serif; /* Bardziej nowoczesna i czytelna czcionka */
     margin: 0;
-    padding: 20px; /* Odstęp od krawędzi okna */
-    background-color: #e0e0e0; /* Tło strony, żeby kontener CV się wyróżniał */
+    padding: 30px 20px; /* Większy padding strony */
+    background-color: var(--bg-color-page);
     color: var(--text-color-dark);
-    line-height: 1.6;
+    line-height: 1.7; /* Poprawiona interlinia dla czytelności */
+    font-size: 16px; /* Standardowy rozmiar czcionki */
 }
 
 .cv-container {
     display: flex;
-    max-width: 1100px; /* Maksymalna szerokość CV */
-    margin: 0 auto; /* Wyśrodkowanie na stronie */
+    max-width: 1200px; /* Nieco szersze CV */
+    margin: 0 auto;
     background-color: var(--bg-color-main);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    overflow: hidden; /* Aby zaokrąglone rogi działały poprawnie */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Wyraźniejszy cień dla całego kontenera */
+    border-radius: 10px; /* Zaokrąglenie kontenera */
+    overflow: hidden;
 }
 
 /* ----- Lewa Kolumna (Sidebar) ----- */
 .sidebar {
-    flex: 0 0 30%; /* Nie rośnie, nie kurczy się, bazowa szerokość 30% */
+    flex: 0 0 33%; /* Nieco szersza lewa kolumna */
     background-color: var(--primary-blue);
     color: var(--text-color-light);
-    padding: 25px;
+    padding: 30px;
+    box-sizing: border-box;
 }
 
-.profile-section {
+.profile-section { /* Usunięto klasę .card, stylizujemy bezpośrednio */
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05); /* Subtelne tło dla sekcji profilowej */
+    border-radius: 8px;
 }
 
 .profile-pic {
-    width: 150px;
-    height: 150px;
+    width: 160px; /* Większe zdjęcie */
+    height: 160px;
     border-radius: 50%;
-    object-fit: cover; /* Aby zdjęcie było dobrze dopasowane */
-    border: 4px solid var(--light-blue);
-    margin-bottom: 15px;
+    object-fit: cover;
+    border: 5px solid var(--secondary-blue); /* Wyraźniejsza ramka */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.name-title {
-    margin-bottom: 5px;
-    font-size: 1.8em;
+.name-title { /* Zmieniono z h2 na h1 w HTML dla semantyki */
+    margin-bottom: 8px;
+    font-size: 2em; /* Wyraźniejsze imię i nazwisko */
     color: var(--text-color-light);
+    font-weight: 700;
 }
 
 .job-subtitle {
-    font-size: 1em;
+    font-size: 1.1em;
     color: var(--light-blue);
     margin-top: 0;
+    font-weight: 400;
+}
+
+.sidebar section.card { /* Karty w sidebarze */
+    background-color: rgba(255, 255, 255, 0.08); /* Lekko przezroczyste tło */
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-blue); /* Akcent */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .sidebar h3 {
-    color: var(--light-blue);
-    border-bottom: 1px solid var(--light-blue);
-    padding-bottom: 8px;
+    color: var(--text-color-light);
+    border-bottom: 2px solid var(--secondary-blue);
+    padding-bottom: 10px;
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2em;
+    margin-bottom: 18px;
+    font-size: 1.35em; /* Wyraźniejsze nagłówki sekcji */
     display: flex;
     align-items: center;
+    font-weight: 600;
 }
 
 .sidebar .icon {
-    margin-right: 10px;
+    margin-right: 12px;
     color: var(--light-blue);
-    width: 20px; /* Stała szerokość dla ikonek */
+    width: 22px;
     text-align: center;
+    font-size: 1.1em;
 }
 
 .sidebar ul {
@@ -89,192 +115,259 @@ body {
 }
 
 .sidebar li {
-    margin-bottom: 8px;
-    display: flex; /* Dla wyrównania ikon z tekstem */
+    margin-bottom: 10px;
+    display: flex;
     align-items: center;
+    font-size: 0.95em;
 }
+.sidebar section.about-me p,
+.sidebar section.interests p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
 
 .sidebar a {
     color: var(--text-color-light);
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .sidebar a:hover {
-    color: var(--accent-color); /* Opcjonalny akcent */
+    color: var(--light-blue);
     text-decoration: underline;
 }
 
 .skills h4 {
-    margin-top: 15px;
-    margin-bottom: 8px;
+    margin-top: 20px;
+    margin-bottom: 10px;
     color: var(--light-blue);
+    font-weight: 600;
+    font-size: 1.05em;
 }
+.skills ul li {
+    margin-bottom: 6px; /* Mniejsze odstępy w listach umiejętności */
+}
+
 
 /* ----- Prawa Kolumna (Main Content) ----- */
 .main-content {
-    flex: 1; /* Zajmuje pozostałą dostępną przestrzeń */
-    padding: 30px;
+    flex: 1;
+    padding: 35px;
+    box-sizing: border-box;
 }
 
 .main-content h2 {
     color: var(--primary-blue);
-    border-bottom: 2px solid var(--secondary-blue);
-    padding-bottom: 10px;
+    border-bottom: 3px solid var(--secondary-blue);
+    padding-bottom: 12px;
     margin-top: 0;
-    margin-bottom: 25px;
-    font-size: 1.6em;
+    margin-bottom: 30px;
+    font-size: 1.9em; /* Większe, bardziej wyraziste nagłówki */
     display: flex;
     align-items: center;
+    font-weight: 700;
 }
 
 .icon-main {
-    margin-right: 15px;
+    margin-right: 18px;
     color: var(--secondary-blue);
+    font-size: 1.1em;
 }
 
-/* ----- Karty ----- */
-.card {
-    background-color: var(--text-color-light); /* Karty w prawej kolumnie */
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 6px;
+/* ----- Główne Karty (prawa kolumna) ----- */
+.main-content .card {
+    background-color: var(--pale-blue-bg); /* Jaśniejsze tło karty */
+    padding: 25px; /* Więcej przestrzeni wewnątrz karty */
+    margin-bottom: 25px;
+    border-radius: 8px;
     box-shadow: var(--card-shadow);
-    border-left: 5px solid var(--secondary-blue); /* Akcent na karcie */
+    border: 1px solid #e0f0ff; /* Subtelna ramka dopasowana do tła karty */
+    border-left: 6px solid var(--secondary-blue); /* Wyraźniejszy akcent */
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-out;
 }
 
-.sidebar .card {
-    background-color: var(--secondary-blue); /* Karty w lewej kolumnie (ciemniejsze tło) */
-    color: var(--text-color-light);
-    padding: 15px;
-    border-left: none; /* Usuwamy akcent, bo cała karta ma inny kolor */
-}
-
-.sidebar .card p, .sidebar .card li {
-    color: var(--text-color-light); /* Upewnij się, że tekst w kartach sidebar jest jasny */
+.main-content .card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-3px); /* Lekkie uniesienie karty przy najechaniu */
 }
 
 /* ----- Linia Czasu ----- */
 .timeline {
     position: relative;
-    padding-left: 30px; /* Miejsce na linię i kropki */
+    padding-left: 35px; /* Więcej miejsca na linię */
 }
 
 .timeline::before { /* Pionowa linia */
     content: '';
     position: absolute;
-    left: 10px; /* Pozycja linii */
-    top: 5px;
-    bottom: 5px;
-    width: 3px;
+    left: 12px;
+    top: 10px;
+    bottom: 10px;
+    width: 4px; /* Grubsza linia */
     background-color: var(--light-blue);
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
-.timeline-item {
+.timeline-item { /* Nadal używa klasy .card dla spójności */
     position: relative;
-    /* margin-bottom: 20px; (już jest na .card) */
 }
 
 .timeline-item::before { /* Kropka na linii */
     content: '';
     position: absolute;
-    left: -26px; /* ( -padding-left .timeline + left .timeline::before - (width .timeline-item::before / 2) + (width .timeline::before / 2) ) -> (-30 + 10 - 7 + 1.5)  */
-    top: 8px; /* Dopasuj do tekstu nagłówka */
-    width: 14px;
-    height: 14px;
-    background-color: var(--primary-blue);
-    border: 3px solid var(--bg-color-main); /* Obramowanie w kolorze tła dla efektu "przebicia" */
+    left: -28px; /* Dostosowanie do grubszej linii i paddingu */
+    top: 18px; /* Lepsze wyrównanie z tekstem */
+    width: 18px; /* Większa kropka */
+    height: 18px;
+    background-color: var(--secondary-blue); /* Kropka w kolorze akcentu */
+    border: 4px solid var(--bg-color-main); /* Obramowanie w kolorze tła prawej kolumny */
     border-radius: 50%;
-    z-index: 1; /* Aby kropka była nad linią */
+    z-index: 1;
+    box-shadow: 0 0 0 3px var(--secondary-blue); /* Dodatkowy pierścień wokół kropki */
 }
 
 .timeline-item h4 {
     margin-top: 0;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     color: var(--primary-blue);
-    font-size: 1.2em;
+    font-size: 1.3em; /* Wyraźniejszy tytuł */
+    font-weight: 600;
 }
 
 .company-date {
-    font-size: 0.9em;
-    color: var(--secondary-blue);
-    font-style: italic;
-    margin-bottom: 10px;
+    font-size: 0.95em;
+    color: var(--text-color-medium); /* Subtelniejszy kolor daty */
+    margin-bottom: 12px;
     display: block;
+    font-style: italic;
 }
 
 .timeline-item ul {
-    padding-left: 20px; /* Wcięcie dla list wewnątrz kart */
+    padding-left: 20px;
     margin-bottom: 0;
 }
 .timeline-item ul li {
-    margin-bottom: 5px;
+    margin-bottom: 8px; /* Większy odstęp między punktami */
+    line-height: 1.6;
 }
 
+/* ----- Referencje ----- */
+.reference-list .reference-item.card { /* Specyficzne style dla kart referencji */
+    background-color: #e6f7ff; /* Nieco inny odcień niebieskiego dla tła */
+    border-left-color: var(--light-blue); /* Inny kolor akcentu dla referencji */
+    padding: 20px;
+}
+.reference-list .reference-item p {
+    margin-bottom: 6px;
+}
+.reference-list .reference-item p strong {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+/* ----- Stopka z Klauzulą ----- */
+footer {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+.clause {
+    font-size: 0.85em;
+    color: var(--text-color-medium);
+}
+
+
 /* ----- Responsywność ----- */
+@media (max-width: 992px) { /* Dostosowanie dla tabletów */
+    .sidebar {
+        flex: 0 0 38%; /* Nieco większy sidebar na tabletach */
+    }
+    .main-content {
+        padding: 30px;
+    }
+    .main-content h2 {
+        font-size: 1.7em;
+    }
+    .timeline-item h4 {
+        font-size: 1.2em;
+    }
+}
+
 @media (max-width: 768px) {
     .cv-container {
-        flex-direction: column; /* Kolumny jedna pod drugą */
+        flex-direction: column;
+        margin: 10px; /* Mniejszy margines na mobilkach */
+        padding: 0;
+    }
+    body {
+        padding: 0; /* Usuwamy padding body na mobilkach, bo kontener ma teraz marginesy */
     }
 
     .sidebar, .main-content {
-        flex: 1 0 100%; /* Każda kolumna zajmuje pełną szerokość */
+        flex: 1 0 100%;
+        border-radius: 0; /* Usuwamy zaokrąglenia kolumn, bo są jedna pod drugą */
     }
-
     .sidebar {
-        padding: 20px;
+        padding: 25px;
     }
-
     .main-content {
-        padding: 20px;
+        padding: 25px; /* Mniejszy padding na mobilkach */
     }
 
     .timeline::before {
-        left: 5px; /* Dostosuj pozycję linii na mniejszych ekranach */
+        left: 8px;
     }
     .timeline-item::before {
-        left: -21px; /* Dostosuj pozycję kropki */
+        left: -25px; /* Korekta dla węższej linii */
+        width: 16px;
+        height: 16px;
+        top: 15px;
     }
     .timeline {
-        padding-left: 20px;
+        padding-left: 25px;
     }
 
-    body {
-        padding: 10px; /* Mniejszy padding na małych ekranach */
+    .profile-pic {
+        width: 130px;
+        height: 130px;
+    }
+    .name-title {
+        font-size: 1.8em;
+    }
+    .main-content h2, .sidebar h3 {
+        font-size: 1.5em;
     }
 }
 
 @media (max-width: 480px) {
     body {
-        font-size: 14px; /* Mniejsza czcionka dla bardzo małych ekranów */
-        padding: 5px;
+        font-size: 15px;
     }
-
-    .profile-pic {
-        width: 120px;
-        height: 120px;
+    .sidebar, .main-content {
+        padding: 20px;
     }
-
-    .name-title {
-        font-size: 1.6em;
+    .main-content .card, .sidebar .card {
+        padding: 18px;
     }
-
-    .main-content h2, .sidebar h3 {
-        font-size: 1.3em;
+    .timeline-item::before {
+        width: 14px;
+        height: 14px;
+        left: -23px;
+        top: 12px;
     }
-
-    .card {
-        padding: 15px;
+    .timeline {
+        padding-left: 20px;
     }
-}
-.reference-list .reference-item {
-    /* Możesz zmniejszyć padding, jeśli karty są za duże */
-    padding: 15px;
-    margin-bottom: 15px; /* Odstęp między kartami referencji */
-}
-.reference-list .reference-item p {
-    margin-bottom: 5px; /* Mniejszy odstęp między liniami w karcie referencji */
-}
-.reference-list .reference-item strong {
-    color: var(--primary-blue); /* Kolor dla imienia i nazwiska */
+    .main-content h2 {
+        font-size: 1.4em;
+    }
+     .sidebar h3 {
+        font-size: 1.25em;
+    }
+    .timeline-item h4 {
+        font-size: 1.1em;
+    }
 }
