@@ -3,137 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Piotr Wolak</title>
+    <title>Moje CV - [Twoje Imię i Nazwisko]</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome dla ikon (możesz pobrać lokalnie lub użyć CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="cv-container">
-        <!-- Możesz później podzielić na kolumny używając divów i CSS -->
-        <!-- np. <div class="left-column"> ... </div> <div class="right-column"> ... </div> -->
+        <!-- LEWA KOLUMNA (CIEŃSZA) -->
+        <aside class="sidebar">
+            <div class="profile-section card">
+                <img src="img/profile-placeholder.jpg" alt="Zdjęcie profilowe" class="profile-pic">
+                <h2 class="name-title">[Twoje Imię i Nazwisko]</h2>
+                <p class="job-subtitle">[Twój Tytuł Zawodowy / Cel]</p>
+            </div>
 
-        <header>
-            <!-- Możesz tu umieścić zdjęcie, jeśli chcesz -->
-            <!-- <img src="images/twoje_zdjecie.jpg" alt="Piotr Wolak"> -->
-            <h1>Piotr Wolak</h1>
-            <p class="job-title">Junior Python Developer</p>
-        </header>
-
-        <section id="contact" class="section">
-            <h2>Kontakt</h2>
-            <address>
-                <p>Telefon: <a href="tel:+48503681878">+48 503 681 878</a></p>
-                <p>Email: <a href="mailto:wolakp@gmail.com">wolakp@gmail.com</a></p>
-                <p>LinkedIn: <a href="https://www.linkedin.com/in/piotr-wolak-8b6363228/" target="_blank" rel="noopener noreferrer">linkedin.com/in/piotr-wolak-8b6363228</a></p>
-                <p>GitHub: <a href="https://github.com/wolakp" target="_blank" rel="noopener noreferrer">github.com/wolakp</a></p>
-            </address>
-        </section>
-
-        <section id="about-me" class="section">
-            <h2>O Mnie</h2>
-            <p>
-                Jestem ambitnym i zmotywowanym studentem informatyki na Politechnice Krakowskiej,
-                specjalizującym się w systemach informatycznych i analizie danych. Moje zainteresowania
-                zawodowe koncentrują się wokół rozwoju aplikacji webowych, sztucznej inteligencji oraz
-                cyberbezpieczeństwa. Poszukuję możliwości rozwoju jako Junior Python Developer, gdzie będę
-                mógł wykorzystać zdobytą wiedzę oraz umiejętności w praktyce, ucząc się od najlepszych
-                i przyczyniając się do realizacji innowacyjnych projektów. Chętnie podejmuję nowe wyzwania
-                i szybko przyswajam nową wiedzę.
-            </p>
-        </section>
-
-        <section id="experience" class="section">
-            <h2>Doświadczenie Zawodowe</h2>
-            <article class="job-entry">
-                <h3>Stażysta Inżynier Oprogramowania</h3>
-                <p class="company-details">Comarch | Kraków | Lipiec 2023 - Wrzesień 2023</p>
+            <section class="contact-info card">
+                <h3><i class="fas fa-address-book icon"></i> Kontakt</h3>
                 <ul>
-                    <li>Tworzenie i rozwijanie aplikacji webowych z wykorzystaniem frameworka Django.</li>
-                    <li>Praca z bazami danych PostgreSQL.</li>
-                    <li>Kontrola wersji przy użyciu systemu Git.</li>
-                    <li>Wykorzystanie narzędzi Jira i Confluence do zarządzania projektami i dokumentacją.</li>
-                    <li>Współpraca w zespole programistycznym w metodyce Scrum.</li>
-                    <li>Tworzenie i utrzymanie kontenerów Docker.</li>
+                    <li><i class="fas fa-phone icon"></i> +48 123 456 789</li>
+                    <li><i class="fas fa-envelope icon"></i> twoj.email@example.com</li>
+                    <li><i class="fab fa-linkedin icon"></i> linkedin.com/in/twojprofil</li>
+                    <li><i class="fab fa-github icon"></i> github.com/twojprofil</li>
+                    <li><i class="fas fa-globe icon"></i> twojastrona.pl (opcjonalnie)</li>
                 </ul>
-                <p><strong>Technologie:</strong> Python, Django, PostgreSQL, Docker, Git, Jira, Confluence</p>
-            </article>
-        </section>
+            </section>
 
-        <section id="education" class="section">
-            <h2>Wykształcenie</h2>
-            <article class="education-entry">
-                <h3>Inżynier Informatyki (Przewidywane ukończenie: Luty 2024)</h3>
-                <p class="institution-details">Politechnika Krakowska im. Tadeusza Kościuszki | Październik 2020 - Obecnie</p>
-                <p><strong>Kierunek:</strong> Informatyka</p>
-                <p><strong>Specjalizacja:</strong> Systemy informatyczne i analiza danych</p>
-                <p><strong>Praca Inżynierska:</strong> "System rekomendacji filmów wykorzystujący techniki uczenia maszynowego"</p>
-                <p><strong>Opis pracy:</strong> Projekt polegał na stworzeniu aplikacji webowej (Flask) z systemem rekomendacji filmów opartym o filtrowanie kolaboracyjne oraz content-based. Wykorzystano Docker do konteneryzacji aplikacji.</p>
-                <p><strong>Technologie użyte w pracy:</strong> Python, Flask, Docker, HTML, CSS, JavaScript, Machine Learning (Scikit-learn, Pandas, NumPy)</p>
-            </article>
-        </section>
+            <section class="about-me card">
+                <h3><i class="fas fa-user icon"></i> O Mnie</h3>
+                <p>
+                    Krótki, zwięzły opis Twoich kluczowych kompetencji, doświadczenia i celów zawodowych.
+                    Wyróżnij to, co czyni Cię idealnym kandydatem.
+                </p>
+            </section>
 
-        <section id="skills" class="section">
-            <h2>Umiejętności</h2>
-            
-            <h3>Technologie:</h3>
-            <ul>
-                <li>Python</li>
-                <li>Django</li>
-                <li>Flask</li>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>SQL (PostgreSQL, MySQL)</li>
-                <li>Docker</li>
-                <li>Git</li>
-                <li>Jira</li>
-                <li>Confluence</li>
-                <li>Scrum</li>
-                <li>Linux</li>
-                <li>Machine Learning (Scikit-learn, Pandas, NumPy)</li>
-            </ul>
+            <section class="skills card">
+                <h3><i class="fas fa-cogs icon"></i> Umiejętności</h3>
+                <h4>Techniczne:</h4>
+                <ul>
+                    <li>HTML5, CSS3, JavaScript</li>
+                    <li>React, Angular, Vue.js (wybierz)</li>
+                    <li>Node.js, Python, Java (wybierz)</li>
+                    <li>Bazy danych: SQL, NoSQL</li>
+                    <li>Git, Docker</li>
+                </ul>
+                <h4>Językowe:</h4>
+                <ul>
+                    <li>Polski - Ojczysty</li>
+                    <li>Angielski - C1 (Zaawansowany)</li>
+                </ul>
+                <h4>Miękkie:</h4>
+                <ul>
+                    <li>Komunikacja</li>
+                    <li>Praca zespołowa</li>
+                    <li>Rozwiązywanie problemów</li>
+                </ul>
+            </section>
 
-            <h3>Języki:</h3>
-            <ul>
-                <li>Polski (Natywny)</li>
-                <li>Angielski (B2)</li>
-            </ul>
+            <section class="interests card">
+                <h3><i class="fas fa-heart icon"></i> Zainteresowania</h3>
+                <ul>
+                    <li>Nowe technologie</li>
+                    <li>Podróże</li>
+                    <li>Fotografia</li>
+                    <li>Sport (np. Bieganie)</li>
+                </ul>
+            </section>
+        </aside>
 
-            <h3>Umiejętności Miękkie:</h3>
-            <ul>
-                <li>Komunikatywność</li>
-                <li>Praca w zespole</li>
-                <li>Rozwiązywanie problemów</li>
-                <li>Analityczne myślenie</li>
-                <li>Chęć nauki i rozwoju</li>
-                <li>Adaptacyjność</li>
-            </ul>
-        </section>
+        <!-- PRAWA KOLUMNA (SZERSZA) -->
+        <main class="main-content">
+            <section class="experience">
+                <h2><i class="fas fa-briefcase icon-main"></i> Doświadczenie Zawodowe</h2>
+                <div class="timeline">
+                    <div class="timeline-item card">
+                        <h4>Starszy Programista Frontend</h4>
+                        <p class="company-date">Nazwa Firmy A | Styczeń 2020 - Obecnie</p>
+                        <ul>
+                            <li>Odpowiedzialność za rozwój i utrzymanie kluczowych modułów aplikacji.</li>
+                            <li>Wdrażanie nowych funkcjonalności zgodnie z metodyką Agile.</li>
+                            <li>Mentoring młodszych programistów.</li>
+                            <li>Optymalizacja wydajności aplikacji.</li>
+                        </ul>
+                    </div>
 
-        <section id="interests" class="section">
-            <h2>Zainteresowania</h2>
-            <ul>
-                <li>Sztuczna Inteligencja</li>
-                <li>Cyberbezpieczeństwo</li>
-                <li>Nowe technologie</li>
-                <li>Gry komputerowe</li>
-                <li>Książki (fantastyka, kryminały)</li>
-                <li>Sport (piłka nożna, siłownia)</li>
-            </ul>
-        </section>
+                    <div class="timeline-item card">
+                        <h4>Programista Frontend</h4>
+                        <p class="company-date">Nazwa Firmy B | Czerwiec 2017 - Grudzień 2019</p>
+                        <ul>
+                            <li>Tworzenie interfejsów użytkownika dla aplikacji webowych.</li>
+                            <li>Współpraca z zespołem backendowym i projektantami UX/UI.</li>
+                            <li>Testowanie i debugowanie kodu.</li>
+                        </ul>
+                    </div>
+                    <!-- Dodaj więcej wpisów doświadczenia -->
+                </div>
+            </section>
 
-        <footer id="rodo-clause">
-            <p>
-                Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji
-                (zgodnie z ustawą z dnia 10 maja 2018 roku o ochronie danych osobowych (Dz. Ustaw z 2018, poz. 1000)
-                oraz zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r.
-                w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu
-                takich danych oraz uchylenia dyrektywy 95/46/WE (RODO)).
-            </p>
-        </footer>
+            <section class="education">
+                <h2><i class="fas fa-graduation-cap icon-main"></i> Edukacja</h2>
+                <div class="timeline">
+                    <div class="timeline-item card">
+                        <h4>Magister Inżynier Informatyki</h4>
+                        <p class="company-date">Nazwa Uczelni | Październik 2015 - Czerwiec 2017</p>
+                        <p>Specjalizacja: Inżynieria Oprogramowania</p>
+                    </div>
 
-    </div> <!-- Koniec .cv-container -->
+                    <div class="timeline-item card">
+                        <h4>Inżynier Informatyki</h4>
+                        <p class="company-date">Nazwa Uczelni | Październik 2011 - Lipiec 2015</p>
+                    </div>
+                    <!-- Dodaj więcej wpisów edukacji -->
+                </div>
+            </section>
 
-    <!-- Link do pliku JS (dodasz go później, jeśli będzie potrzebny) -->
-    <!-- <script src="js/script.js"></script> -->
+            <section class="references">
+                <h2><i class="fas fa-thumbs-up icon-main"></i> Referencje</h2>
+                <div class="card">
+                     <p>Dostępne na żądanie.</p>
+                     <!-- Możesz też dodać konkretne referencje jako oddzielne karty -->
+                     <!--
+                     <div class="reference-item">
+                         <p><strong>Jan Kowalski</strong> - CEO w Firma X</p>
+                         <p>"[Twoje Imię] to wybitny specjalista..."</p>
+                     </div>
+                     -->
+                </div>
+            </section>
+
+            <!-- Opcjonalnie: Projekty -->
+            <!--
+            <section class="projects">
+                <h2><i class="fas fa-project-diagram icon-main"></i> Projekty</h2>
+                <div class="timeline">
+                    <div class="timeline-item card">
+                        <h4>Nazwa Projektu 1</h4>
+                        <p class="company-date">Link do GitHub/Demo | Krótki opis technologii</p>
+                        <p>Opis projektu, Twoja rola, użyte technologie.</p>
+                    </div>
+                </div>
+            </section>
+            -->
+
+        </main>
+    </div>
 </body>
 </html>
