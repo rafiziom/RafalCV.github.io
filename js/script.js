@@ -17,40 +17,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Uruchomienie funkcji wyróżniania
     highlightCompanyInfo();
 
-
-  // ========== PRINT BUTTON ==========
-  const printButton = document.createElement('button');
-  printButton.className = 'print-button';
-  printButton.innerHTML = '<i class="fas fa-print"></i> Print CV';
-  printButton.addEventListener('click', () => window.print());
-  document.body.appendChild(printButton);
-
-    // Przycisk Przewiń do Góry
-    const scrollTopButton = document.getElementById('scrollTopButton');
-    const actionButtonsContainer = document.querySelector('.action-buttons-container'); // Pobieramy kontener
-
-    if (scrollTopButton && actionButtonsContainer) {
-        // Pokaż/ukryj przycisk "Do Góry" i dostosuj pozycję kontenera
-        window.onscroll = function() {
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                scrollTopButton.style.opacity = "1";
-                scrollTopButton.style.visibility = "visible";
-                scrollTopButton.style.transform = "translateY(0)"; // Płynne pojawienie się
-                actionButtonsContainer.classList.add('scrolled'); // Opcjonalnie, jeśli chcesz zmieniać kontener
-            } else {
-                scrollTopButton.style.opacity = "0";
-                scrollTopButton.style.visibility = "hidden";
-                scrollTopButton.style.transform = "translateY(10px)"; // Płynne znikanie
-                actionButtonsContainer.classList.remove('scrolled');
-            }
-        };
-
-        // Funkcja przewijania do góry po kliknięciu
-        scrollTopButton.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
+    // Przycisk przewijania do góry pojawia się po przewinięciu 300px
+    window.addEventListener('scroll', function() {
+      const scrollBtn = document.getElementById('scrollToTopBtn');
+      if (window.scrollY > 300) {
+        scrollBtn.style.display = 'flex';
+      } else {
+        scrollBtn.style.display = 'none';
+      }
+    });
+    document.getElementById('scrollToTopBtn').onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    document.getElementById('printBtn').onclick = function() {
+      window.print();
+    };
 });
