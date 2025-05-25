@@ -179,13 +179,14 @@ body {
 /* ----- Główne Karty (prawa kolumna) ----- */
 .main-content .card {
     background-color: var(--pale-blue-bg); /* Jaśniejsze tło karty */
-    padding: 25px; /* Więcej przestrzeni wewnątrz karty */
+    padding: 25px; /* Domyślny padding dla kart */
     margin-bottom: 25px;
     border-radius: 8px;
     box-shadow: var(--card-shadow);
-    border: 1px solid #e0f0ff; /* Subtelna ramka dopasowana do tła karty */
-    border-left: 6px solid var(--secondary-blue); /* Wyraźniejszy akcent */
+    /* border: 1px solid #e0f0ff; */ /* Usunięto lub zakomentowano, jeśli pasek akcentujący wystarczy */
+    border-left: none; /* Usuwamy globalny lewy border z kart */
     transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-out;
+    position: relative; /* Dla poprawnego działania z-index pseudo-elementów */
 }
 
 .main-content .card:hover {
@@ -193,71 +194,117 @@ body {
     transform: translateY(-3px); /* Lekkie uniesienie karty przy najechaniu */
 }
 
-/* ----- Linia Czasu ----- */
+/* ----- Linia Czasu (Nowa Wersja) ----- */
 .timeline {
     position: relative;
-    padding-left: 35px; /* Więcej miejsca na linię */
 }
 
-.timeline::before { /* Pionowa linia */
+.timeline-item.card {
+    padding-left: 40px; /* Zwiększony padding dla miejsca na pasek i znacznik */
+    /* border-left: none; jest już globalnie na .main-content .card */
+}
+
+.timeline-item.card::before { /* Pionowy pasek akcentujący */
     content: '';
     position: absolute;
-    left: 12px;
-    top: 10px;
-    bottom: 10px;
-    width: 4px; /* Grubsza linia */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
     background-color: var(--light-blue);
-    border-radius: 3px;
+    border-radius: 3px 0 0 3px;
+    z-index: 1;
 }
 
-.timeline-item { /* Nadal używa klasy .card dla spójności */
-    position: relative;
-}
-
-.timeline-item::before { /* Kropka na linii */
+.timeline-item.card::after { /* "Kropka" na osi czasu */
     content: '';
     position: absolute;
-    left: -28px; /* Dostosowanie do grubszej linii i paddingu */
-    top: 18px; /* Lepsze wyrównanie z tekstem */
-    width: 18px; /* Większa kropka */
-    height: 18px;
-    background-color: var(--secondary-blue); /* Kropka w kolorze akcentu */
-    border: 4px solid var(--bg-color-main); /* Obramowanie w kolorze tła prawej kolumny */
+    left: -7px;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--secondary-blue);
+    border: 3px solid var(--pale-blue-bg); /* Tło karty, aby "przebić" pasek */
     border-radius: 50%;
-    z-index: 1;
-    box-shadow: 0 0 0 3px var(--secondary-blue); /* Dodatkowy pierścień wokół kropki */
+    z-index: 2;
+    box-shadow: 0 0 0 3px var(--secondary-blue), 0 2px 5px rgba(0,0,0,0.15);
 }
 
 .timeline-item h4 {
     margin-top: 0;
     margin-bottom: 6px;
     color: var(--primary-blue);
-    font-size: 1.3em; /* Wyraźniejszy tytuł */
+    font-size: 1.3em;
     font-weight: 600;
+    position: relative;
+    z-index: 3;
 }
 
 .company-date {
     font-size: 0.95em;
-    color: var(--text-color-medium); /* Subtelniejszy kolor daty */
+    color: var(--text-color-medium); /* Domyślny kolor */
     margin-bottom: 12px;
     display: block;
     font-style: italic;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+    position: relative;
+    z-index: 3;
+}
+
+/* Style dla wyróżnionych firm (dodane przez JS) */
+.company-date.highlight-euvic {
+    color: #007bff; /* Wyraźniejszy niebieski */
+    font-weight: 600;
+}
+
+.company-date.highlight-media-saturn {
+    color: #d9534f; /* Czerwony akcent dla Media Saturn/MMS */
+    font-weight: 600;
+}
+
+.company-date.highlight-qumak {
+    color: #f0ad4e; /* Pomarańczowy dla Qumak */
+    font-weight: 600;
 }
 
 .timeline-item ul {
-    padding-left: 20px;
+    padding-left: 0; /* Usunięto dodatkowe wcięcie, stylizowane przez li::before */
     margin-bottom: 0;
+    position: relative;
+    z-index: 3;
 }
 .timeline-item ul li {
-    margin-bottom: 8px; /* Większy odstęp między punktami */
+    margin-bottom: 8px;
     line-height: 1.6;
+    position: relative;
+    padding-left: 20px; /* Wcięcie dla customowego punktora */
+}
+
+.timeline-item ul li::before { /* Customowy punktor dla list */
+    content: "›";
+    color: var(--secondary-blue);
+    font-weight: bold;
+    font-size: 1.4em;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+/* Specjalne dostosowanie dla kart, które nie są timeline-item (np. Referencje), jeśli chcemy inny padding */
+.main-content section:not(.experience):not(.education) .card {
+    padding-left: 25px; /* Domyślny padding dla kart nie będących na osi czasu */
+}
+.main-content section.references .card {
+     padding-left: 25px;
 }
 
 /* ----- Referencje ----- */
-.reference-list .reference-item.card { /* Specyficzne style dla kart referencji */
-    background-color: #e6f7ff; /* Nieco inny odcień niebieskiego dla tła */
-    border-left-color: var(--light-blue); /* Inny kolor akcentu dla referencji */
-    padding: 20px;
+.reference-list .reference-item.card {
+    background-color: #e6f7ff;
+    /* border-left-color: var(--light-blue); - Usunięte, bo korzystamy z ::before dla akcentu lub go nie ma */
+    padding: 20px; /* Zmniejszony padding dla kart referencji */
+    /* Jeśli chcesz akcent dla kart referencji, możesz dodać: */
+    /* border-left: 4px solid var(--light-blue); */
 }
 .reference-list .reference-item p {
     margin-bottom: 6px;
@@ -281,9 +328,9 @@ footer {
 
 
 /* ----- Responsywność ----- */
-@media (max-width: 992px) { /* Dostosowanie dla tabletów */
+@media (max-width: 992px) {
     .sidebar {
-        flex: 0 0 38%; /* Nieco większy sidebar na tabletach */
+        flex: 0 0 38%;
     }
     .main-content {
         padding: 30px;
@@ -299,36 +346,45 @@ footer {
 @media (max-width: 768px) {
     .cv-container {
         flex-direction: column;
-        margin: 10px; /* Mniejszy margines na mobilkach */
+        margin: 10px;
         padding: 0;
     }
     body {
-        padding: 0; /* Usuwamy padding body na mobilkach, bo kontener ma teraz marginesy */
+        padding: 0;
     }
 
     .sidebar, .main-content {
         flex: 1 0 100%;
-        border-radius: 0; /* Usuwamy zaokrąglenia kolumn, bo są jedna pod drugą */
+        border-radius: 0;
     }
     .sidebar {
         padding: 25px;
     }
     .main-content {
-        padding: 25px; /* Mniejszy padding na mobilkach */
+        padding: 25px;
     }
 
-    .timeline::before {
-        left: 8px;
+    .timeline-item.card {
+        padding-left: 35px;
     }
-    .timeline-item::before {
-        left: -25px; /* Korekta dla węższej linii */
-        width: 16px;
-        height: 16px;
-        top: 15px;
+    .timeline-item.card::after {
+        left: -9px;
+        top: 18px;
+        width: 18px;
+        height: 18px;
     }
-    .timeline {
-        padding-left: 25px;
+    .main-content .card { /* Ogólne karty na mobilkach */
+        padding: 20px; /* Zmniejszony padding */
     }
+    /* Jeśli .timeline-item.card ma specjalny padding-left, trzeba go zachować */
+    .timeline-item.card {
+        padding-left: 35px !important; /* Utrzymanie paddingu dla osi czasu */
+    }
+    .main-content section:not(.experience):not(.education) .card,
+    .main-content section.references .card {
+        padding-left: 20px !important; /* Domyślny padding dla innych kart */
+    }
+
 
     .profile-pic {
         width: 130px;
@@ -349,18 +405,25 @@ footer {
     .sidebar, .main-content {
         padding: 20px;
     }
-    .main-content .card, .sidebar .card {
+    .main-content .card {
         padding: 18px;
     }
-    .timeline-item::before {
+     /* Jeśli .timeline-item.card ma specjalny padding-left, trzeba go zachować */
+    .timeline-item.card {
+        padding-left: 30px !important;
+    }
+    .main-content section:not(.experience):not(.education) .card,
+    .main-content section.references .card {
+        padding-left: 18px !important;
+    }
+
+    .timeline-item.card::after {
+        left: -7px;
+        top: 16px;
         width: 14px;
         height: 14px;
-        left: -23px;
-        top: 12px;
     }
-    .timeline {
-        padding-left: 20px;
-    }
+
     .main-content h2 {
         font-size: 1.4em;
     }
