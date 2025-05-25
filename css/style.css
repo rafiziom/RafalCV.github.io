@@ -17,6 +17,19 @@
     --border-color: #dee2e6;
     --card-shadow: 0 6px 18px rgba(0, 50, 100, 0.12); /* Ładniejszy, bardziej rozproszony cień */
     --card-shadow-hover: 0 8px 25px rgba(0, 50, 100, 0.18); /* Cień przy najechaniu */
+
+    /* --- KARTA KONTAKTU: DRY, zmienne i spójność stylu --- */
+    --contact-card-bg: #151515;
+    --contact-card-radius: 5px;
+    --contact-card-accent: #0a3d62;
+    --contact-card-badge-bg: #00000055;
+    --contact-card-desc-bg: #00000099;
+    --contact-card-desc-shadow: none;
+    --contact-card-title-color: #fff;
+    --contact-card-footer-color: #ffffff88;
+    --contact-card-circle1: #6966ff;
+    --contact-card-circle2: #0c1269;
+    --contact-card-circle3: #0c6618;
 }
 
 
@@ -906,42 +919,50 @@ footer {
   bottom: 110px !important; /* nad przyciskami */
 }
 
-.card {
+
+.card.contact-card {
   overflow: visible;
-  width: 390px;
+  width: 100%;
+  max-width: 390px;
+  min-width: 0;
   height: 214px;
+  margin-bottom: 28px;
+  margin-left: 0;
+  margin-right: 0;
+  box-shadow: none;
+  position: relative;
 }
 
-.content {
+.card .content {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 300ms;
-  box-shadow: 0px 0px 10px 1px #000000ee;
-  border-radius: 5px;
+  box-shadow: none;
+  border-radius: var(--contact-card-radius);
+  position: relative;
+  min-height: 180px;
 }
 
-.front, .back {
-  background-color: #151515;
+.card .front, .card .back {
+  background-color: var(--contact-card-bg);
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 5px;
+  border-radius: var(--contact-card-radius);
   overflow: hidden;
+  box-shadow: none;
 }
 
-.back {
-  width: 100%;
-  height: 100%;
+.card .back {
   justify-content: center;
   display: flex;
   align-items: center;
   overflow: hidden;
 }
-
-.back::before {
+.card .back::before {
   position: absolute;
   content: ' ';
   display: block;
@@ -950,13 +971,12 @@ footer {
   background: linear-gradient(90deg, transparent, #3a0097,#3a0097,#0c1cff,#2c1cff,#1c1cff,#3a0097, #3a0097, transparent);
   animation: rotation_481 5000ms infinite linear;
 }
-
-.back-content {
+.card .back-content {
   position: absolute;
   width: 99%;
   height: 99%;
-  background-color: #0a3d62;
-  border-radius: 5px;
+  background-color: var(--contact-card-accent);
+  border-radius: var(--contact-card-radius);
   color: white;
   display: flex;
   flex-direction: column;
@@ -970,21 +990,16 @@ footer {
 }
 
 @keyframes rotation_481 {
-  0% {
-    transform: rotateZ(0deg);
-  }
-
-  0% {
-    transform: rotateZ(360deg);
-  }
+  0% { transform: rotateZ(0deg);}
+  100% { transform: rotateZ(360deg);}
 }
 
-.front {
+.card .front {
   transform: rotateY(180deg);
   color: white;
+  box-shadow: none;
 }
-
-.front .front-content {
+.card .front .front-content {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -993,127 +1008,97 @@ footer {
   flex-direction: column;
   justify-content: space-between;
 }
-
 .front-content .badge {
-  background-color: #00000055;
+  background-color: var(--contact-card-badge-bg);
   padding: 2px 10px;
   border-radius: 10px;
   backdrop-filter: blur(2px);
   width: fit-content;
+  color: #fff;
 }
-
 .description {
-  box-shadow: 0px 0px 10px 5px #00000088;
+  box-shadow: var(--contact-card-desc-shadow);
   width: 100%;
   padding: 10px;
-  background-color: #00000099;
+  background-color: var(--contact-card-desc-bg);
   backdrop-filter: blur(5px);
-  border-radius: 5px;
+  border-radius: var(--contact-card-radius);
 }
-
 .title {
-  font-size: 11px;
+  font-size: 1em;
   max-width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  color: var(--contact-card-title-color);
 }
-
 .title p {
   width: 50%;
 }
-
 .card-footer {
-  color: #ffffff88;
+  color: var(--contact-card-footer-color);
   margin-top: 5px;
-  font-size: 8px;
+  font-size: 0.98em;
 }
-
-.front .img {
+.card .front .img {
   position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
-
 .circle {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background-color: #6966ff;
+  background-color: var(--contact-card-circle1);
   position: relative;
   filter: blur(15px);
   animation: floating 2600ms infinite linear;
 }
-
 #bottom {
-  background-color: #0c1269;
+  background-color: var(--contact-card-circle2);
   left: 50px;
   top: 0px;
   width: 150px;
   height: 150px;
   animation-delay: -800ms;
 }
-
 #right {
-  background-color: #0c6618;
+  background-color: var(--contact-card-circle3);
   left: 160px;
   top: -80px;
   width: 30px;
   height: 30px;
   animation-delay: -1800ms;
 }
-
 @keyframes floating {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(10px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
+  0% { transform: translateY(0px);}
+  50% { transform: translateY(10px);}
+  100% { transform: translateY(0px);}
 }
 
-/* --- KARTA KONTAKTU: poprawki położenia i cienia --- */
-.card.contact-card {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  margin-bottom: 28px;
-  margin-left: 0;
-  margin-right: 0;
-  box-shadow: none;
-  position: relative;
-}
-.card.contact-card .content {
-  min-height: 180px;
-  box-shadow: none;
-}
-.card.contact-card .front-content .description {
-  min-height: 90px;
-  font-size: 1em;
-}
-.card.contact-card .front-content .title {
-  font-size: 1em;
-  align-items: center;
-  gap: 8px;
-}
-.card.contact-card .front-content .card-footer {
-  font-size: 0.98em;
-  margin-top: 2px;
-  color: #e3e3e3;
-}
 @media (max-width: 700px) {
+  .card,
   .card.contact-card {
     max-width: 100%;
     width: 100%;
     min-width: 0;
+    height: auto;
   }
-  .card.contact-card .content {
+  .card .content {
     min-height: 140px;
   }
+}
+
+/* Usuń cień i wymuś brak cienia na wszystkich elementach karty kontaktowej */
+.card,
+.card.contact-card,
+.card .content,
+.card .front,
+.card .back,
+.card .front-content,
+.card .front-content .description {
+  box-shadow: none !important;
 }
