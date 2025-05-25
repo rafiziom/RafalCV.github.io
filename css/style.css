@@ -793,7 +793,7 @@ footer {
   top: -0.2em;
 }
 
-/* --- POPUP Z CIASTECZKAMI --- */
+/* --- POPUP Z CIASTECZKAMI LEWA STRONA --- */
 .cookie-popup {
   position: fixed;
   bottom: 32px;
@@ -807,42 +807,74 @@ footer {
 }
 .cookie-popup-content {
   background: #fff;
-  border-radius: 18px;
+  border-radius: 22px;
   box-shadow: 0 8px 32px rgba(30, 144, 255, 0.18), 0 2px 8px rgba(0,0,0,0.10);
-  padding: 24px 24px 18px 24px;
+  padding: 28px 28px 20px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 280px;
-  max-width: 340px;
+  min-width: 290px;
+  max-width: 370px;
   pointer-events: all;
   position: relative;
-  border: 1.5px solid #e3f2fd;
+  border: 2px solid #f6c177;
+  transition: box-shadow 0.2s;
+}
+.cookie-popup-content:hover {
+  box-shadow: 0 12px 36px rgba(246,193,119,0.18), 0 4px 16px rgba(30,144,255,0.10);
+}
+.cookie-popup-icon {
+  margin-bottom: 12px;
+  animation: cookie-pop 1.2s cubic-bezier(.68,-0.55,.27,1.55) both;
+}
+@keyframes cookie-pop {
+  0% { transform: scale(0.7) rotate(-20deg);}
+  60% { transform: scale(1.15) rotate(10deg);}
+  100% { transform: scale(1) rotate(0);}
+}
+.cookie-popup-text {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.cookie-popup-text strong {
+  font-size: 1.18em;
+  color: #0a3d62;
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+.cookie-popup-text p {
+  color: #555;
+  font-size: 1em;
+  margin: 0;
+  line-height: 1.5;
 }
 .cookie-popup-actions {
   display: flex;
   flex-direction: row;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
   justify-content: space-between;
 }
 .cookie-btn {
   border: none;
-  border-radius: 12px;
-  padding: 8px 22px;
+  border-radius: 14px;
+  padding: 9px 26px;
   font-size: 1em;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(30,144,255,0.07);
 }
 .cookie-btn-yes {
-  background: #1e90ff;
+  background: #f6c177;
   color: #fff;
   margin-left: auto;
+  box-shadow: 0 2px 8px #f6c17744;
 }
 .cookie-btn-yes:hover {
-  background: #0a3d62;
+  background: #e9a94b;
+  color: #fff;
 }
 .cookie-btn-no {
   background: #f0f8ff;
@@ -870,5 +902,12 @@ footer {
   0% { transform: translateY(0) rotate(-10deg); opacity: 0.97; }
   80% { opacity: 1; }
   100% { transform: translateY(110vh) rotate(40deg); opacity: 0.2; }
+}
+
+/* --- POPUP Z CIASTECZKAMI PRAWA STRONA --- */
+.cookie-popup-right {
+  left: auto !important;
+  right: 32px !important;
+  bottom: 110px !important; /* nad przyciskami */
 }
 
