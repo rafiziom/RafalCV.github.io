@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Test animowanego tła bąbelkowego</title>
+  <link rel="stylesheet" href="css/animated-bubbles-bg.css">
+  <!-- Pełny link do pliku CSS (przykład dla localhost) -->
+  <!-- <link rel="stylesheet" href="http://localhost:5500/css/animated-bubbles-bg.css"> -->
+  <!-- Pełny link do pliku CSS (przykład dla GitHub Pages) -->
+  <!-- <link rel="stylesheet" href="https://rafalcv.github.io/css/animated-bubbles-bg.css"> -->
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background: #f0f8ff;
+    }
+    .test-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-top: 100px;
+      font-size: 2em;
+      color: #1976d2;
+      font-family: 'Open Sans', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="uiverse-bg-bubbles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="test-content">
+    To jest test animowanego tła bąbelkowego.
+  </div>
+  <script>
+    // Upewnij się, że CSS jest poprawnie załadowany i nie ma literówek w nazwach klas.
+    // Nie potrzeba żadnych dodatkowych bibliotek ani JS do działania tej animacji.
+    // Jeśli nadal nie działa, sprawdź w narzędziach deweloperskich (F12), czy elementy .uiverse-bg-bubbles i span są obecne w DOM i nie są ukryte przez inne style.
+  </script>
+</body>
+</html>
