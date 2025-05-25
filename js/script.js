@@ -18,13 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
     highlightCompanyInfo();
 
 
-    // Przycisk Drukuj
-    const printButton = document.getElementById('printButton');
-    if (printButton) {
-        printButton.addEventListener('click', function() {
-            window.print();
-        });
-    }
+  // ========== PRINT BUTTON ==========
+  const printButton = document.createElement('button');
+  printButton.className = 'print-button';
+  printButton.innerHTML = '<i class="fas fa-print"></i> Print CV';
+  printButton.addEventListener('click', () => window.print());
+  document.body.appendChild(printButton);
 
     // Przycisk Przewiń do Góry
     const scrollTopButton = document.getElementById('scrollTopButton');
