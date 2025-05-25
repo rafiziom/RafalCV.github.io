@@ -523,3 +523,19 @@ footer {
         padding: 8px 10px; /* Mniejszy padding dla samych ikon */
     }
 }
+/* ========== PRINT STYLES ========== */
+@media print {
+  body {
+    grid-template-columns: 1fr;
+    font-size: 12pt;
+  }
+  
+  .sidebar {
+    display: none;
+  }
+  
+  .main-content {
+    padding: 1cm;
+    max-width: 100%;
+  }
+}
