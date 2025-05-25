@@ -267,3 +267,14 @@ body {
         padding: 15px;
     }
 }
+.reference-list .reference-item {
+    /* Możesz zmniejszyć padding, jeśli karty są za duże */
+    padding: 15px;
+    margin-bottom: 15px; /* Odstęp między kartami referencji */
+}
+.reference-list .reference-item p {
+    margin-bottom: 5px; /* Mniejszy odstęp między liniami w karcie referencji */
+}
+.reference-list .reference-item strong {
+    color: var(--primary-blue); /* Kolor dla imienia i nazwiska */
+}
