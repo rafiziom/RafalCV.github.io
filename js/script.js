@@ -29,9 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('scrollToTopBtn').onclick = function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
-    document.getElementById('printBtn').onclick = function() {
-      window.print();
-    };
+    var printBtn = document.getElementById('printBtn');
+    if (printBtn) {
+        printBtn.onclick = function(e) {
+            e.preventDefault();
+            stopAllAnimations();
+            window.print();
+        };
+    }
 });
   // Create geometric shapes
         function createShapes() {
@@ -616,4 +621,41 @@ document.addEventListener('DOMContentLoaded', function() {
   contactCard.addEventListener('click', handleInteraction);
   document.addEventListener('mousemove', handleInteraction);
   document.addEventListener('scroll', handleInteraction);
+});
+
+// Funkcja kończąca wszystkie animacje na stronie (usuwa dynamiczne elementy, resetuje style)
+function stopAllAnimations() {
+    // Usuń wszystkie dynamiczne ciastka
+    document.querySelectorAll('.falling-cookie').forEach(el => el.remove());
+    // Zatrzymaj animacje tła/particli jeśli są dynamiczne
+    document.querySelectorAll('.shape, .particle').forEach(el => {
+        el.style.animation = 'none';
+        el.style.opacity = 1;
+    });
+    // Przywróć pełną widoczność sekcji, nagłówków itp.
+    document.querySelectorAll('.name-title, .job-subtitle, .experience h2, .about-me.card, .skills.card, .interests.card, .references, .education, .education h2, .education .timeline, .experience .timeline, .timeline-item.card').forEach(el => {
+        el.style.opacity = '';
+        el.style.transform = '';
+        el.style.transition = '';
+    });
+    // Usuń podpowiedzi kliknięcia
+    document.querySelectorAll('.click-hint').forEach(el => el.remove());
+}
+
+// Dodaj obsługę przycisku printBtn do zatrzymania animacji przed drukiem
+document.addEventListener('DOMContentLoaded', function() {
+    // Usuń poprzednią obsługę printBtn, aby nie wywoływać window.print() dwa razy
+    // document.getElementById('printBtn').onclick = function() {
+    //   window.print();
+    // };
+
+    // Dodaj obsługę przycisku printBtn do zatrzymania animacji przed drukiem
+    var printBtn = document.getElementById('printBtn');
+    if (printBtn) {
+        printBtn.onclick = function(e) {
+            e.preventDefault();
+            stopAllAnimations();
+            window.print();
+        };
+    }
 });
