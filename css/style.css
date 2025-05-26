@@ -906,49 +906,81 @@ footer {
   bottom: 110px !important; /* nad przyciskami */
 }
 
-/* ----- Karta Kontaktowa ----- */
+/* ----- Karta Kontaktowa - Wersja Ostateczna ----- */
 .contact-card {
   overflow: visible;
   width: 390px;
-  height: 214px;
+  height: 354px;
   margin: 0 auto 28px auto;
   box-shadow: none;
   background: transparent;
   padding: 0;
   border: none;
+  perspective: 1000px;
 }
 
 .contact-card .content {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 300ms;
+  transition: transform 0.6s ease;
   box-shadow: none;
-  border-radius: 5px;
+  border-radius: 8px;
   background: transparent;
   padding: 0;
+  position: relative;
 }
 
 .contact-card .front, 
 .contact-card .back {
-  background-color: #151515;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, #0d4b7a 100%);
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: 5px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: none;
+  box-shadow: 0 4px 16px rgba(10, 61, 98, 0.3);
+  top: 0;
+  left: 0;
+  padding: 15px;
+  box-sizing: border-box;
 }
 
-.contact-card .back {
+/* TYLNA STRONA TERAZ JEST DOMYŚLNIE WIDOCZNA */
+.contact-card .front {
+  transform: rotateY(180deg); /* Front schowany na starcie */
+}
+
+.contact-card .front .front-content {
+  position: absolute;
   width: 100%;
   height: 100%;
-  justify-content: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(10, 61, 98, 0.9) 0%, rgba(13, 75, 122, 0.9) 100%);
+}
+
+.contact-card .front-content .badge {
+  background-color: rgba(30, 144, 255, 0.3); /* Półprzezroczysty niebieski */
+  padding: 2px 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
+  width: fit-content;
+  color: white;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+.contact-card .back {
+  transform: rotateY(0deg); /* Back widoczny na starcie */
   display: flex;
   align-items: center;
-  overflow: hidden;
+  justify-content: center;
 }
 
 .contact-card .back::before {
@@ -957,7 +989,12 @@ footer {
   display: block;
   width: 160px;
   height: 1160%;
-  background: linear-gradient(90deg, transparent, #3a0097,#3a0097,#0c1cff,#2c1cff,#1c1cff,#3a0097, #3a0097, transparent);
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--secondary-blue), /* #1e90ff */
+    var(--light-blue),    /* #87cefa */
+    var(--secondary-blue),
+    transparent);
   animation: rotation_481 5000ms infinite linear;
 }
 
@@ -975,85 +1012,85 @@ footer {
   gap: 30px;
 }
 
+/* Obracanie na hover - teraz pokazuje przód */
 .contact-card:hover .content {
-  transform: rotateY(180deg);
+  transform: rotateY(-180deg);
 }
 
-@keyframes rotation_481 {
-  0% { transform: rotateZ(0deg);}
-  100% { transform: rotateZ(360deg);}
-}
-
-.contact-card .front {
-  transform: rotateY(180deg);
-  color: white;
-  box-shadow: none;
-}
-
-.contact-card .front .front-content {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
+/* Sekcja kontaktów - front */
+.contact-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-.contact-card .front-content .badge {
-  background-color: #00000055;
-  padding: 2px 10px;
-  border-radius: 10px;
-  backdrop-filter: blur(2px);
-  width: fit-content;
-}
-
-.contact-card .description {
-  box-shadow: none;
-  width: 100%;
-  padding: 10px;
-  background-color: #00000099;
-  backdrop-filter: blur(5px);
-  border-radius: 5px;
-}
-
-.contact-card .title {
-  font-size: 11px;
-  max-width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.contact-card .title p {
-  width: 50%;
-}
-
-.contact-card .card-footer {
-  color: #ffffff88;
-  margin-top: 5px;
-  font-size: 8px;
-}
-
-.contact-card .front .img {
-  position: absolute;
-  width: 100%;
+  gap: 12px;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
 }
 
+.contact-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--secondary-blue);
+  padding: 10px 12px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  background: rgba(30, 144, 255, 0.2);
+  transform: translateX(5px);
+}
+
+.contact-icon {
+  margin-right: 10px;
+  color: var(--light-blue);
+  font-size: 1.2em;
+  width: 20px;
+  text-align: center;
+}
+
+.contact-label {
+  font-size: 0.9em;
+  color: var(--light-blue);
+  margin-bottom: 2px;
+}
+
+.contact-value {
+  font-size: 0.95em;
+  color: white;
+  word-break: break-all;
+}
+
+/* Sekcja tytułowa */
+.contact-header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.contact-title {
+  color: var(--light-blue);
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
+
+.contact-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9em;
+}
+
+/* Elementy dekoracyjne */
 .contact-card .circle {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background-color: #6966ff;
-  position: relative;
-  filter: blur(15px);
+  background-color: var(--secondary-blue);
+  position: absolute;
+  filter: blur(25px);
   animation: floating 2600ms infinite linear;
+  opacity: 0.3;
 }
 
 .contact-card #bottom {
-  background-color: #0c1269;
+  background-color: var(--primary-blue);
   left: 50px;
   top: 0px;
   width: 150px;
@@ -1062,7 +1099,7 @@ footer {
 }
 
 .contact-card #right {
-  background-color: #0c6618;
+  background-color: var(--light-blue);
   left: 160px;
   top: -80px;
   width: 30px;
@@ -1070,8 +1107,14 @@ footer {
   animation-delay: -1800ms;
 }
 
+/* Animacje */
+@keyframes rotation_481 {
+  0% { transform: rotateZ(0deg); }
+  100% { transform: rotateZ(360deg); }
+}
+
 @keyframes floating {
-  0% { transform: translateY(0px);}
-  50% { transform: translateY(10px);}
-  100% { transform: translateY(0px);}
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(10px); }
+  100% { transform: translateY(0px); }
 }
