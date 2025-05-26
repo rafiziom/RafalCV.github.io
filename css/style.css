@@ -663,6 +663,14 @@ footer {
         padding: 0;
     }
 
+    /* Zmieniamy kolejność: main-content (doświadczenie) jako pierwsze */
+    .main-content {
+        order: 1;
+    }
+    .sidebar {
+        order: 2;
+    }
+
     .sidebar, .main-content {
         flex: 1 0 100%;
         border-radius: 0;

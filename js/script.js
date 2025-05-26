@@ -509,21 +509,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const contactCard = document.querySelector('.contact-card');
   let hintTimeout;
   let isHintVisible = false;
+  let hintElement, hintStyle;
 
-  // Funkcja tworząca wskazówkę
-  function createClickHint() {
-    const clickHint = document.createElement('div');
-    clickHint.className = 'click-hint';
-    clickHint.innerHTML = `
-      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 15V3M12 15L8 11M12 15L16 11" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <path d="M5 18H19C20.1046 18 21 18.8954 21 20V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V20C3 18.8954 3.89543 18 5 18Z" fill="white"/>
-      </svg>
-    `;
-    
-    // Style dla wskazówki
-    const style = document.createElement('style');
-    style.textContent = `
+  // Style dla wskazówki (dodawane raz)
+  const setupStyles = () => {
+    hintStyle = document.createElement('style');
+    hintStyle.textContent = `
       .click-hint {
         position: absolute;
         bottom: 20px;
@@ -533,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
         animation: bounce 2s infinite, fadeIn 0.5s ease-out;
         opacity: 0.8;
         filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        pointer-events: none;
       }
       @keyframes bounce {
         0%, 20%, 50%, 80%, 100% {
@@ -554,74 +546,77 @@ document.addEventListener('DOMContentLoaded', function() {
         height: 60px;
       }
     `;
-    document.head.appendChild(style);
-    
-    return { hint: clickHint, style: style };
-  }
+    document.head.appendChild(hintStyle);
+  };
+
+  // Funkcja tworząca wskazówkę
+  const createHint = () => {
+    hintElement = document.createElement('div');
+    hintElement.className = 'click-hint';
+    hintElement.innerHTML = `
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 15V3M12 15L8 11M12 15L16 11" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <path d="M5 18H19C20.1046 18 21 18.8954 21 20V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V20C3 18.8954 3.89543 18 5 18Z" fill="white"/>
+      </svg>
+    `;
+    return hintElement;
+  };
 
   // Funkcja pokazująca wskazówkę
-  function showHint() {
+  const showHint = () => {
     if (isHintVisible) return;
     
-    const { hint, style } = createClickHint();
     const backContent = contactCard.querySelector('.back-content');
-    backContent.appendChild(hint);
+    if (!hintElement) createHint();
+    backContent.appendChild(hintElement);
     isHintVisible = true;
-    
-    // Ukryj po kliknięciu
-    const hideOnClick = function() {
-      hint.style.transition = 'opacity 0.5s ease-out';
-      hint.style.opacity = '0';
-      setTimeout(() => {
-        hint.remove();
-        style.remove();
-        isHintVisible = false;
-        resetHintTimer(); // Restart timer po ukryciu
-      }, 500);
-      contactCard.removeEventListener('click', hideOnClick);
-    };
-    
-    contactCard.addEventListener('click', hideOnClick);
     
     // Autoukrycie po 8 sekundach widoczności
     setTimeout(() => {
-      if (isHintVisible) {
-        hint.style.transition = 'opacity 1s ease-out';
-        hint.style.opacity = '0';
-        setTimeout(() => {
-          hint.remove();
-          style.remove();
-          isHintVisible = false;
-          resetHintTimer(); // Restart timer po ukryciu
-        }, 1000);
-      }
+      if (isHintVisible) hideHint();
     }, 8000);
-  }
+  };
+
+  // Funkcja ukrywająca wskazówkę
+  const hideHint = () => {
+    if (!isHintVisible) return;
+    
+    hintElement.style.transition = 'opacity 0.5s ease-out';
+    hintElement.style.opacity = '0';
+    setTimeout(() => {
+      if (hintElement.parentNode) {
+        hintElement.parentNode.removeChild(hintElement);
+      }
+      isHintVisible = false;
+    }, 500);
+  };
 
   // Timer dla wskazówki
-  function resetHintTimer() {
+  const resetHintTimer = () => {
     clearTimeout(hintTimeout);
     hintTimeout = setTimeout(showHint, 15000); // Pokaż po 15s nieaktywności
-  }
+  };
 
-  // Śledź interakcje z kartą
+  // Inicjalizacja
+  setupStyles();
+  createHint();
+  
+  // Pierwsze pokazanie wskazówki
+  setTimeout(showHint, 1000); // Opóźnienie 1s dla lepszego UX
+
+  // Obsługa interakcji
   contactCard.addEventListener('mouseenter', () => {
     clearTimeout(hintTimeout);
-    if (isHintVisible) {
-      const hint = document.querySelector('.click-hint');
-      if (hint) {
-        hint.style.transition = 'opacity 0.5s ease-out';
-        hint.style.opacity = '0';
-        setTimeout(() => {
-          hint.remove();
-          isHintVisible = false;
-        }, 500);
-      }
-    }
+    hideHint();
   });
 
   contactCard.addEventListener('mouseleave', resetHintTimer);
+  contactCard.addEventListener('click', () => {
+    hideHint();
+    resetHintTimer();
+  });
 
-  // Pierwsze uruchomienie timera
-  resetHintTimer();
+  // Resetuj timer przy interakcji z dokumentem
+  document.addEventListener('mousemove', resetHintTimer);
+  document.addEventListener('scroll', resetHintTimer);
 });
