@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             liDelay += 120;
                         });
                     });
-                }, 1000);
+                }, 400); // było 1000, teraz szybciej
             }
         }
         window.addEventListener('scroll', animateSkills);
@@ -472,4 +472,156 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', animateInterests);
         setTimeout(animateInterests, 300);
     }
+
+    // --- Animacja wskaźnika kliknięcia na zdjęcie profilowe (emoji) ---
+    function animateProfilePointer() {
+        const pointer = document.getElementById('profile-pointer-anim');
+        if (!pointer) return;
+        const emoji = pointer.querySelector('.pointer-emoji');
+        if (!emoji) return;
+        emoji.style.opacity = 0;
+        emoji.style.animation = 'profile-pointer-bounce 1.5s cubic-bezier(.68,-0.55,.27,1.55) 1.2s 2';
+        pointer.style.display = 'block';
+        setTimeout(() => {
+            emoji.style.opacity = 0;
+            emoji.style.animation = '';
+            pointer.style.display = 'none';
+        }, 4000);
+    }
+    // Uruchom animację tylko jeśli zdjęcie jest na ekranie
+    const profileSection = document.querySelector('.profile-section');
+    if (profileSection) {
+        let pointerAnimated = false;
+        function showProfilePointerIfVisible() {
+            if (pointerAnimated) return;
+            const rect = profileSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                pointerAnimated = true;
+                animateProfilePointer();
+            }
+        }
+        window.addEventListener('scroll', showProfilePointerIfVisible);
+        setTimeout(showProfilePointerIfVisible, 400);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const contactCard = document.querySelector('.contact-card');
+  let hintTimeout;
+  let isHintVisible = false;
+
+  // Funkcja tworząca wskazówkę
+  function createClickHint() {
+    const clickHint = document.createElement('div');
+    clickHint.className = 'click-hint';
+    clickHint.innerHTML = `
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 15V3M12 15L8 11M12 15L16 11" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <path d="M5 18H19C20.1046 18 21 18.8954 21 20V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V20C3 18.8954 3.89543 18 5 18Z" fill="white"/>
+      </svg>
+    `;
+    
+    // Style dla wskazówki
+    const style = document.createElement('style');
+    style.textContent = `
+      .click-hint {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        animation: bounce 2s infinite, fadeIn 0.5s ease-out;
+        opacity: 0.8;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      }
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        40% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+        60% {
+          transform: translateX(-50%) translateY(-5px);
+        }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+        to { opacity: 0.8; transform: translateX(-50%) translateY(0); }
+      }
+      .click-hint svg {
+        width: 60px;
+        height: 60px;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return { hint: clickHint, style: style };
+  }
+
+  // Funkcja pokazująca wskazówkę
+  function showHint() {
+    if (isHintVisible) return;
+    
+    const { hint, style } = createClickHint();
+    const backContent = contactCard.querySelector('.back-content');
+    backContent.appendChild(hint);
+    isHintVisible = true;
+    
+    // Ukryj po kliknięciu
+    const hideOnClick = function() {
+      hint.style.transition = 'opacity 0.5s ease-out';
+      hint.style.opacity = '0';
+      setTimeout(() => {
+        hint.remove();
+        style.remove();
+        isHintVisible = false;
+        resetHintTimer(); // Restart timer po ukryciu
+      }, 500);
+      contactCard.removeEventListener('click', hideOnClick);
+    };
+    
+    contactCard.addEventListener('click', hideOnClick);
+    
+    // Autoukrycie po 8 sekundach widoczności
+    setTimeout(() => {
+      if (isHintVisible) {
+        hint.style.transition = 'opacity 1s ease-out';
+        hint.style.opacity = '0';
+        setTimeout(() => {
+          hint.remove();
+          style.remove();
+          isHintVisible = false;
+          resetHintTimer(); // Restart timer po ukryciu
+        }, 1000);
+      }
+    }, 8000);
+  }
+
+  // Timer dla wskazówki
+  function resetHintTimer() {
+    clearTimeout(hintTimeout);
+    hintTimeout = setTimeout(showHint, 15000); // Pokaż po 15s nieaktywności
+  }
+
+  // Śledź interakcje z kartą
+  contactCard.addEventListener('mouseenter', () => {
+    clearTimeout(hintTimeout);
+    if (isHintVisible) {
+      const hint = document.querySelector('.click-hint');
+      if (hint) {
+        hint.style.transition = 'opacity 0.5s ease-out';
+        hint.style.opacity = '0';
+        setTimeout(() => {
+          hint.remove();
+          isHintVisible = false;
+        }, 500);
+      }
+    }
+  });
+
+  contactCard.addEventListener('mouseleave', resetHintTimer);
+
+  // Pierwsze uruchomienie timera
+  resetHintTimer();
 });

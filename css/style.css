@@ -237,8 +237,8 @@
 }
 
 .profile-pic {
-    width: 160px; /* Większe zdjęcie */
-    height: 160px;
+    width: 190px; /* Większe zdjęcie */
+    height: 190px;
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid var(--secondary-blue); /* Wyraźniejsza ramka */
@@ -948,6 +948,7 @@ footer {
   backface-visibility: hidden;
   border-radius: 8px;
   overflow: hidden;
+   border: 2px solid var(--secondary-blue); /* Wyraźniejsza ramka */
   box-shadow: 0 4px 16px rgba(10, 61, 98, 0.3);
   top: 0;
   left: 0;
@@ -1157,3 +1158,5 @@ footer {
   text-decoration: underline;
   cursor: pointer;
 }
+
+
