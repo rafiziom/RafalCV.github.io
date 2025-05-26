@@ -507,14 +507,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   const contactCard = document.querySelector('.contact-card');
-  let hintTimeout;
-  let isHintVisible = false;
-  let hintElement, hintStyle;
+  let hintInterval;
+  let inactivityTimer;
+  let isHintActive = false;
+  const hintDuration = 5000; // 5 sekund pokazywania strzałki
+  const hintDelay = 10000; // 15 sekund przerwy
 
-  // Style dla wskazówki (dodawane raz)
+  // Style dla wskazówki
   const setupStyles = () => {
-    hintStyle = document.createElement('style');
-    hintStyle.textContent = `
+    const style = document.createElement('style');
+    style.textContent = `
       .click-hint {
         position: absolute;
         bottom: 20px;
@@ -546,77 +548,72 @@ document.addEventListener('DOMContentLoaded', function() {
         height: 60px;
       }
     `;
-    document.head.appendChild(hintStyle);
+    document.head.appendChild(style);
   };
 
-  // Funkcja tworząca wskazówkę
+  // Tworzenie elementu strzałki
   const createHint = () => {
-    hintElement = document.createElement('div');
-    hintElement.className = 'click-hint';
-    hintElement.innerHTML = `
+    const hint = document.createElement('div');
+    hint.className = 'click-hint';
+    hint.innerHTML = `
       <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 15V3M12 15L8 11M12 15L16 11" stroke="white" stroke-width="2" stroke-linecap="round"/>
         <path d="M5 18H19C20.1046 18 21 18.8954 21 20V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V20C3 18.8954 3.89543 18 5 18Z" fill="white"/>
       </svg>
     `;
-    return hintElement;
+    return hint;
   };
 
-  // Funkcja pokazująca wskazówkę
+  // Pokazanie strzałki
   const showHint = () => {
-    if (isHintVisible) return;
+    if (isHintActive) return;
     
+    isHintActive = true;
+    const hint = createHint();
     const backContent = contactCard.querySelector('.back-content');
-    if (!hintElement) createHint();
-    backContent.appendChild(hintElement);
-    isHintVisible = true;
+    backContent.appendChild(hint);
     
-    // Autoukrycie po 8 sekundach widoczności
+    // Ukrycie po określonym czasie
     setTimeout(() => {
-      if (isHintVisible) hideHint();
-    }, 8000);
-  };
-
-  // Funkcja ukrywająca wskazówkę
-  const hideHint = () => {
-    if (!isHintVisible) return;
-    
-    hintElement.style.transition = 'opacity 0.5s ease-out';
-    hintElement.style.opacity = '0';
-    setTimeout(() => {
-      if (hintElement.parentNode) {
-        hintElement.parentNode.removeChild(hintElement);
+      if (hint.parentNode) {
+        hint.style.transition = 'opacity 0.5s ease-out';
+        hint.style.opacity = '0';
+        setTimeout(() => {
+          if (hint.parentNode) hint.parentNode.removeChild(hint);
+          isHintActive = false;
+        }, 500);
       }
-      isHintVisible = false;
-    }, 500);
+    }, hintDuration);
   };
 
-  // Timer dla wskazówki
-  const resetHintTimer = () => {
-    clearTimeout(hintTimeout);
-    hintTimeout = setTimeout(showHint, 15000); // Pokaż po 15s nieaktywności
+  // Resetowanie timera nieaktywności
+  const resetInactivityTimer = () => {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+      showHint();
+      // Ustawienie interwału dla kolejnych pokazań
+      hintInterval = setInterval(showHint, hintDelay + hintDuration);
+    }, hintDelay);
   };
 
   // Inicjalizacja
   setupStyles();
-  createHint();
   
-  // Pierwsze pokazanie wskazówki
-  setTimeout(showHint, 1000); // Opóźnienie 1s dla lepszego UX
+  // Pierwsze pokazanie strzałki po 1 sekundzie
+  setTimeout(() => {
+    showHint();
+    resetInactivityTimer();
+  }, 1000);
 
   // Obsługa interakcji
-  contactCard.addEventListener('mouseenter', () => {
-    clearTimeout(hintTimeout);
-    hideHint();
-  });
+  const handleInteraction = () => {
+    clearTimeout(inactivityTimer);
+    clearInterval(hintInterval);
+    resetInactivityTimer();
+  };
 
-  contactCard.addEventListener('mouseleave', resetHintTimer);
-  contactCard.addEventListener('click', () => {
-    hideHint();
-    resetHintTimer();
-  });
-
-  // Resetuj timer przy interakcji z dokumentem
-  document.addEventListener('mousemove', resetHintTimer);
-  document.addEventListener('scroll', resetHintTimer);
+  contactCard.addEventListener('mouseenter', handleInteraction);
+  contactCard.addEventListener('click', handleInteraction);
+  document.addEventListener('mousemove', handleInteraction);
+  document.addEventListener('scroll', handleInteraction);
 });
