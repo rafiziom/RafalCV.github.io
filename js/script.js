@@ -113,121 +113,173 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 // --- ANIMACJE CV PO URUCHOMIENIU STRONY ---
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Animacja losowania liter dla imienia i nazwiska (wolniejsze, styl "hakier/kodowanie")
-    function animateName(selector, text, speed = 65) {
-        const el = document.querySelector(selector);
-        if (!el) return;
-        let frame = 0;
-        const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=<>?[]{}|';
-        let interval = setInterval(() => {
-            let displayed = '';
-            for (let i = 0; i < text.length; i++) {
-                if (i < frame) {
-                    displayed += text[i];
-                } else if (text[i] === ' ') {
-                    displayed += ' ';
-                } else {
-                    // "Hakier" styl: losowe znaki z charset
-                    displayed += charset[Math.floor(Math.random() * charset.length)];
-                }
-            }
-            el.textContent = displayed;
-            // Efekt: "RAF" pojawia się szybciej, reszta wolniej
-            if (frame < 3) {
-                frame += 1; // szybciej dla "RAF"
-            } else {
-                frame += 0.5; // wolniej dla reszty
-            }
-            if (frame >= text.length) {
-                el.textContent = text;
-                clearInterval(interval);
-            }
-        }, speed);
+    // Helper: sprawdza czy element jest widoczny w oknie
+    function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
     }
-    animateName('.name-title', 'RAFAŁ CZERNIAK');
 
-    // 2. Animacja powiększenia/pomniejszenia podtytułu + efekt "uderzenia"
+    // 1. Animacja losowania liter dla imienia i nazwiska (wolniejsze, styl "hakier/kodowanie") - tylko gdy na ekranie
+    const nameTitle = document.querySelector('.name-title');
+    if (nameTitle) {
+        nameTitle.style.opacity = 0;
+        let nameAnimated = false;
+        function animateNameOnScreen() {
+            if (nameAnimated) return;
+            if (isInViewport(nameTitle)) {
+                nameAnimated = true;
+                nameTitle.style.opacity = 1;
+                function animateName(selector, text, speed = 65) {
+                    const el = document.querySelector(selector);
+                    if (!el) return;
+                    let frame = 0;
+                    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=<>?[]{}|';
+                    let interval = setInterval(() => {
+                        let displayed = '';
+                        for (let i = 0; i < text.length; i++) {
+                            if (i < frame) {
+                                displayed += text[i];
+                            } else if (text[i] === ' ') {
+                                displayed += ' ';
+                            } else {
+                                displayed += charset[Math.floor(Math.random() * charset.length)];
+                            }
+                        }
+                        el.textContent = displayed;
+                        if (frame < 3) {
+                            frame += 1;
+                        } else {
+                            frame += 0.5;
+                        }
+                        if (frame >= text.length) {
+                            el.textContent = text;
+                            clearInterval(interval);
+                        }
+                    }, speed);
+                }
+                animateName('.name-title', 'RAFAŁ CZERNIAK');
+            }
+        }
+        window.addEventListener('scroll', animateNameOnScreen);
+        setTimeout(animateNameOnScreen, 300);
+    }
+
+    // 2. Animacja powiększenia/pomniejszenia podtytułu + efekt "uderzenia" - tylko gdy na ekranie
     const subtitle = document.querySelector('.job-subtitle');
     if (subtitle) {
-        subtitle.style.transition = 'transform 0.7s cubic-bezier(.68,-0.55,.27,1.55)';
-        subtitle.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-            subtitle.style.transform = 'scale(1)';
-            // Efekt "uderzenia" po powrocie do normalnego rozmiaru
-            setTimeout(() => {
-                subtitle.style.transition = 'transform 0.18s cubic-bezier(.68,-0.55,.27,1.55)';
-                subtitle.style.transform = 'scale(1.18) translateY(-8px)';
+        subtitle.style.opacity = 0;
+        let subtitleAnimated = false;
+        function animateSubtitleOnScreen() {
+            if (subtitleAnimated) return;
+            if (isInViewport(subtitle)) {
+                subtitleAnimated = true;
+                subtitle.style.opacity = 1;
+                subtitle.style.transition = 'transform 0.7s cubic-bezier(.68,-0.55,.27,1.55)';
+                subtitle.style.transform = 'scale(1.2)';
                 setTimeout(() => {
                     subtitle.style.transform = 'scale(1)';
-                    subtitle.style.transition = 'transform 0.4s cubic-bezier(.68,-0.55,.27,1.55)';
-                }, 180);
-            }, 220);
-        }, 700);
+                    setTimeout(() => {
+                        subtitle.style.transition = 'transform 0.18s cubic-bezier(.68,-0.55,.27,1.55)';
+                        subtitle.style.transform = 'scale(1.18) translateY(-8px)';
+                        setTimeout(() => {
+                            subtitle.style.transform = 'scale(1)';
+                            subtitle.style.transition = 'transform 0.4s cubic-bezier(.68,-0.55,.27,1.55)';
+                        }, 180);
+                    }, 220);
+                }, 700);
+            }
+        }
+        window.addEventListener('scroll', animateSubtitleOnScreen);
+        setTimeout(animateSubtitleOnScreen, 300);
     }
 
-    // 3. Fade-in dla nagłówka "Doświadczenie Zawodowe"
+    // 3. Fade-in dla nagłówka "Doświadczenie Zawodowe" - tylko gdy na ekranie
     const expHeader = document.querySelector('.experience h2');
     if (expHeader) {
         expHeader.style.opacity = 0;
-        expHeader.style.transition = 'opacity 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
-        setTimeout(() => {
-            expHeader.style.opacity = 1;
-        }, 900);
+        let expHeaderAnimated = false;
+        function animateExpHeaderOnScreen() {
+            if (expHeaderAnimated) return;
+            if (isInViewport(expHeader)) {
+                expHeaderAnimated = true;
+                expHeader.style.transition = 'opacity 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
+                setTimeout(() => {
+                    expHeader.style.opacity = 1;
+                }, 200);
+            }
+        }
+        window.addEventListener('scroll', animateExpHeaderOnScreen);
+        setTimeout(animateExpHeaderOnScreen, 300);
     }
 
-    // 4. Linia czasu - wjazd z prawego boku, powiększenie najnowszej pracy
+    // 4. Linia czasu - wjazd z prawego boku, powiększenie najnowszej pracy - tylko gdy na ekranie
     const timeline = document.querySelector('.experience .timeline');
     if (timeline) {
         timeline.style.opacity = 0;
         timeline.style.transform = 'translateX(180px)';
         timeline.style.transition = 'opacity 0.9s, transform 0.9s cubic-bezier(.68,-0.55,.27,1.55)';
-        // Ukryj wszystkie itemy od razu (przed animacją)
         const items = timeline.querySelectorAll('.timeline-item.card');
         items.forEach(item => {
             item.style.opacity = 0;
             item.style.transform = 'translateX(120px)';
             item.style.transition = 'none';
         });
-        setTimeout(() => {
-            timeline.style.opacity = 1;
-            timeline.style.transform = 'translateX(0)';
-            // Po zakończeniu, animuj kolejne timeline-itemy
-            items.forEach((item, idx) => {
+        let timelineAnimated = false;
+        function animateTimelineOnScreen() {
+            if (timelineAnimated) return;
+            if (isInViewport(timeline)) {
+                timelineAnimated = true;
                 setTimeout(() => {
-                    item.style.transition = 'opacity 0.85s, transform 0.85s cubic-bezier(.68,-0.55,.27,1.55)';
-                    item.style.opacity = 1;
-                    item.style.transform = 'translateX(0)';
-                    // Po animacji najnowszej pracy (pierwszy element), powiększ go z opóźnieniem
-                    if (idx === 0) {
+                    timeline.style.opacity = 1;
+                    timeline.style.transform = 'translateX(0)';
+                    items.forEach((item, idx) => {
                         setTimeout(() => {
-                            item.style.transition = 'transform 0.5s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.5s';
-                            item.style.transform = 'scale(1.04)';
-                            item.style.boxShadow = '0 8px 32px rgba(30,144,255,0.18)';
-                            setTimeout(() => {
-                                item.style.transform = '';
-                                item.style.boxShadow = '';
-                            }, 700);
-                        }, 1200); // opóźnienie po pojawieniu się (zwiększono z 900 na 1200)
-                    }
-                }, 600 + idx * 350);
-            });
-        }, 1600);
+                            item.style.transition = 'opacity 0.85s, transform 0.85s cubic-bezier(.68,-0.55,.27,1.55)';
+                            item.style.opacity = 1;
+                            item.style.transform = 'translateX(0)';
+                            if (idx === 0) {
+                                setTimeout(() => {
+                                    item.style.transition = 'transform 0.5s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.5s';
+                                    item.style.transform = 'scale(1.04)';
+                                    item.style.boxShadow = '0 8px 32px rgba(30,144,255,0.18)';
+                                    setTimeout(() => {
+                                        item.style.transform = '';
+                                        item.style.boxShadow = '';
+                                    }, 700);
+                                }, 1200);
+                            }
+                        }, 600 + idx * 350);
+                    });
+                }, 1600);
+            }
+        }
+        window.addEventListener('scroll', animateTimelineOnScreen);
+        setTimeout(animateTimelineOnScreen, 300);
     }
 
     // 5. Animacje dla sekcji kontakt, podsumowanie, umiejętności, o mnie
-    function fadeUpSection(selector, delay = 0) {
+    function fadeUpSectionOnScreen(selector, delay = 0) {
         const el = document.querySelector(selector);
         if (el) {
             el.style.opacity = 0;
             el.style.transform = 'translateY(40px)';
             el.style.transition = 'opacity 0.7s, transform 0.7s cubic-bezier(.68,-0.55,.27,1.55)';
-            setTimeout(() => {
-                el.style.opacity = 1;
-                el.style.transform = 'translateY(0)';
-            }, delay);
+            let animated = false;
+            function animateSection() {
+                if (animated) return;
+                if (isInViewport(el)) {
+                    animated = true;
+                    setTimeout(() => {
+                        el.style.opacity = 1;
+                        el.style.transform = 'translateY(0)';
+                    }, delay);
+                }
+            }
+            window.addEventListener('scroll', animateSection);
+            setTimeout(animateSection, 300);
         }
     }
-    fadeUpSection('.contact-card', 400);
+    fadeUpSectionOnScreen('.contact-card', 400);
 
     // Podsumowanie Zawodowe: wjazd od dołu do góry, tylko gdy pojawi się na ekranie
     const aboutSection = document.querySelector('.about-me.card');
@@ -238,8 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let aboutAnimated = false;
         function animateAbout() {
             if (aboutAnimated) return;
-            const rect = aboutSection.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
+            if (isInViewport(aboutSection)) {
                 aboutAnimated = true;
                 setTimeout(() => {
                     aboutSection.style.opacity = 1;
@@ -248,12 +299,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         window.addEventListener('scroll', animateAbout);
-        setTimeout(animateAbout, 1000);
+        setTimeout(animateAbout, 300);
     }
 
     // fadeUpSection('.about-me.card', 700); // Usunięte, bo powyżej jest własna animacja
     // fadeUpSection('.skills.card', 900); // Usuwamy tę linię, bo robimy własną animację dla umiejętności
-    fadeUpSection('.interests.card', 1100);
+    fadeUpSectionOnScreen('.interests.card', 1100);
 
     // Animacja dla sekcji Umiejętności: kategorie pojawiają się normalnie, a liście wjeżdżają na swoje miejsce po pojawieniu się sekcji na ekranie
     const skillsSection = document.querySelector('.skills.card');
@@ -264,13 +315,11 @@ document.addEventListener('DOMContentLoaded', function() {
         let skillsAnimated = false;
         function animateSkills() {
             if (skillsAnimated) return;
-            const rect = skillsSection.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
+            if (isInViewport(skillsSection)) {
                 skillsAnimated = true;
                 setTimeout(() => {
                     skillsSection.style.opacity = 1;
                     skillsSection.style.transform = 'translateY(0)';
-                    // Animacja dla każdej listy umiejętności (li) z opóźnieniem
                     const skillLists = skillsSection.querySelectorAll('ul');
                     let liDelay = 0;
                     skillLists.forEach((ul, ulIdx) => {
@@ -289,11 +338,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             liDelay += 120;
                         });
                     });
-                }, 1000); // sekundowe opóźnienie po pojawieniu się sekcji
+                }, 1000);
             }
         }
         window.addEventListener('scroll', animateSkills);
-        setTimeout(animateSkills, 1000);
+        setTimeout(animateSkills, 300);
     }
 
     // Dodatkowa animacja dla sekcji kontakt: obrót karty
@@ -309,21 +358,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // 6. Efekt podświetlenia referencji po pojawieniu się sekcji
     const referencesSection = document.querySelector('.references');
     if (referencesSection) {
-        // Funkcja sprawdzająca czy sekcja jest widoczna w oknie
-        function isInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top < window.innerHeight &&
-                rect.bottom > 0
-            );
-        }
         let referencesAnimated = false;
         function animateReferences() {
             if (referencesAnimated) return;
             if (isInViewport(referencesSection)) {
                 referencesAnimated = true;
-                setTimeout(() => { // sekundowe opóźnienie
-                    // Animacja ikony kciuka - efekt jakości
+                setTimeout(() => {
                     const thumbIcon = referencesSection.querySelector('.fa-thumbs-up.icon-main');
                     if (thumbIcon) {
                         thumbIcon.style.transition = 'transform 0.5s cubic-bezier(.68,-0.55,.27,1.55), filter 0.5s';
@@ -337,7 +377,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             }, 350);
                         }, 350);
                     }
-                    // Animacja referencji 1-2-3-1-2-3
                     const refs = document.querySelectorAll('.reference-list .reference-item.card');
                     let order = [0, 1, 2, 0, 1, 2];
                     order.forEach((idx, i) => {
@@ -353,47 +392,43 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                         }, 400 + i * 350);
                     });
-                }, 1000); // sekundowe opóźnienie
+                }, 1000);
             }
         }
         window.addEventListener('scroll', animateReferences);
-        // Na wypadek gdyby sekcja była od razu widoczna
-        setTimeout(animateReferences, 1000);
+        setTimeout(animateReferences, 300);
     }
 
-    // Animacja dla sekcji Wykształcenie - tylko gdy pojawi się na ekranie
+    // Animacja dla sekcji Wykształcenie - nagłówek wyjeżdża od dołu, karty zaraz po tym, tylko gdy na ekranie
     const eduSection = document.querySelector('.education');
     const eduHeader = document.querySelector('.education h2');
     const eduTimeline = document.querySelector('.education .timeline');
     if (eduSection && eduHeader && eduTimeline) {
         eduHeader.style.opacity = 0;
-        eduHeader.style.transform = 'translateY(40px) scale(0.95)';
+        eduHeader.style.transform = 'translateY(80px)';
         eduHeader.style.transition = 'opacity 0.8s, transform 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
         eduTimeline.style.opacity = 0;
-        eduTimeline.style.transform = 'scale(0.92)';
         eduTimeline.style.transition = 'opacity 0.8s 0.3s, transform 0.8s 0.3s cubic-bezier(.68,-0.55,.27,1.55)';
         let eduAnimated = false;
         function animateEdu() {
             if (eduAnimated) return;
-            const rect = eduSection.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
+            if (isInViewport(eduSection)) {
                 eduAnimated = true;
-                setTimeout(() => { // sekundowe opóźnienie
+                setTimeout(() => {
                     eduHeader.style.opacity = 1;
-                    eduHeader.style.transform = 'translateY(0) scale(1.05)';
+                    eduHeader.style.transform = 'translateY(0)';
                     setTimeout(() => {
-                        eduHeader.style.transform = 'translateY(0) scale(1)';
-                    }, 350);
-                    eduTimeline.style.opacity = 1;
-                    eduTimeline.style.transform = 'scale(1.03)';
-                    setTimeout(() => {
-                        eduTimeline.style.transform = 'scale(1)';
+                        eduTimeline.style.opacity = 1;
+                        eduTimeline.style.transform = 'scale(1.03)';
+                        setTimeout(() => {
+                            eduTimeline.style.transform = 'scale(1)';
+                        }, 400);
                     }, 400);
-                }, 1000); // sekundowe opóźnienie
+                }, 1000);
             }
         }
         window.addEventListener('scroll', animateEdu);
-        setTimeout(animateEdu, 1000);
+        setTimeout(animateEdu, 300);
     }
 
     // Zainteresowania / O Mnie: animacja bicia serca, tylko gdy pojawi się na ekranie, z opóźnieniem
@@ -405,18 +440,16 @@ document.addEventListener('DOMContentLoaded', function() {
         let interestsAnimated = false;
         function animateInterests() {
             if (interestsAnimated) return;
-            const rect = interestsSection.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
+            if (isInViewport(interestsSection)) {
                 interestsAnimated = true;
                 setTimeout(() => {
                     interestsSection.style.opacity = 1;
                     interestsSection.style.transform = 'translateY(0)';
-                    // Animacja bicia serca - wolniej i dłużej
                     const heart = interestsSection.querySelector('.fa-heart');
                     if (heart) {
                         let beat = 0;
                         function heartBeat() {
-                            if (beat >= 6) { // więcej uderzeń
+                            if (beat >= 6) {
                                 heart.style.transform = '';
                                 heart.style.transition = '';
                                 return;
@@ -428,15 +461,15 @@ document.addEventListener('DOMContentLoaded', function() {
                                 setTimeout(() => {
                                     beat++;
                                     heartBeat();
-                                }, 260); // dłuższa przerwa między uderzeniami
+                                }, 260);
                             }, 330);
                         }
-                        setTimeout(heartBeat, 400); // lekkie opóźnienie po pojawieniu się sekcji
+                        setTimeout(heartBeat, 400);
                     }
-                }, 1200); // opóźnienie pojawienia się sekcji zainteresowań
+                }, 1200);
             }
         }
         window.addEventListener('scroll', animateInterests);
-        setTimeout(animateInterests, 1000);
+        setTimeout(animateInterests, 300);
     }
 });
