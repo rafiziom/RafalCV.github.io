@@ -1617,5 +1617,12 @@ footer {
 #print-qr-info {
   display: none;
 }
+@media print {
+  .contact-info-card.card a,
+  .contact-value a {
+    text-decoration: none !important;
+    color: #fff !important;
+  }
+}
 
 
