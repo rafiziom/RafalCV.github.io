@@ -248,9 +248,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                     }, 700);
                                 }, 1200);
                             }
-                        }, 600 + idx * 350);
+                        }, 400 + idx * 350); // było 600 + idx * 350, teraz szybciej
                     });
-                }, 1600);
+                }, 1200); // było 1600, teraz szybciej
             }
         }
         window.addEventListener('scroll', animateTimelineOnScreen);
