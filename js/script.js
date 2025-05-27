@@ -659,3 +659,37 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 });
+
+function spawnCookie() {
+    const cookie = document.createElement('div');
+    cookie.className = 'falling-cookie';
+    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    let left = Math.random();
+    left = left < 0.5 ? left * 0.4 : 0.6 + (left - 0.5) * 0.8;
+    cookie.style.left = (left * vw) + 'px';
+
+    // Losowy początkowy obrót i kierunek obrotu
+    const startRotate = Math.floor(Math.random() * 360);
+    const endRotate = startRotate + (Math.random() > 0.5 ? 360 : -360) + Math.floor(Math.random() * 180 - 90);
+    const animDuration = (1.8 + Math.random() * 1.7);
+
+    // Ustaw animację z losowym obrotem (kluczowe: cookie-fall-custom w CSS)
+    cookie.style.animation = `cookie-fall-custom ${animDuration}s linear forwards`;
+    cookie.style.setProperty('--cookie-rotate-start', `${startRotate}deg`);
+    cookie.style.setProperty('--cookie-rotate-end', `${endRotate}deg`);
+
+    cookie.innerHTML = `
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+        <path d="M37 19c0 9.94-8.06 18-18 18S1 28.94 1 19C1 9.06 9.06 1 19 1c0 3.5 2.5 6 6 6 0 2.5 2 4.5 4.5 4.5 0 2.5 2 4.5 4.5 4.5z" fill="#f6c177"/>
+        <circle cx="11" cy="13" r="2" fill="#a86b2d"/>
+        <circle cx="22" cy="10" r="1.3" fill="#a86b2d"/>
+        <circle cx="26" cy="22" r="1.5" fill="#a86b2d"/>
+        <circle cx="16" cy="25" r="1.1" fill="#a86b2d"/>
+        <circle cx="28" cy="14" r="1" fill="#a86b2d"/>
+      </svg>
+    `;
+    document.body.appendChild(cookie);
+    setTimeout(() => {
+      cookie.remove();
+    }, animDuration * 1000 + 200);
+}

@@ -237,8 +237,8 @@
 }
 
 .profile-pic {
-    width: 190px; /* Większe zdjęcie */
-    height: 190px;
+    width: 220px; /* Większe zdjęcie */
+    height: 220px;
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid var(--secondary-blue); /* Wyraźniejsza ramka */
@@ -528,7 +528,7 @@
 .reference-item.card {
   flex: 1 1 200px;
   min-width: 190px;
-  max-width: 310px;
+  max-width: 270px;
   background: #e3f2fd;
   border-left: 4px solid #1976d2;
   border-radius: 8px;
@@ -707,8 +707,8 @@ footer {
 
 
     .profile-pic {
-        width: 130px;
-        height: 130px;
+        width: 160px;
+        height: 160px;
     }
     .name-title {
         font-size: 1.8em;
@@ -905,16 +905,25 @@ footer {
   top: -40px;
   z-index: 9998;
   pointer-events: none;
-  animation: cookie-fall linear forwards;
   width: 38px;
   height: 38px;
   opacity: 0.97;
   filter: drop-shadow(0 2px 6px #f6c17755);
 }
-@keyframes cookie-fall {
-  0% { transform: translateY(0) rotate(-10deg); opacity: 0.97; }
-  80% { opacity: 1; }
-  100% { transform: translateY(110vh) rotate(40deg); opacity: 0.2; }
+
+/* Nowa animacja z losowym obrotem */
+@keyframes cookie-fall-custom {
+  0% {
+    transform: translateY(0) rotate(var(--cookie-rotate-start, -10deg));
+    opacity: 0.97;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(var(--cookie-rotate-end, 40deg));
+    opacity: 0.2;
+  }
 }
 
 /* --- POPUP Z CIASTECZKAMI PRAWA STRONA --- */
@@ -1152,7 +1161,9 @@ footer {
   background: none;
   box-shadow: none;
   letter-spacing: 0.2px;
-  width: 100%;
+  width: 95%;
+  margin: auto;
+  text-align: center;
   justify-content: flex-start;
 }
 
@@ -1251,9 +1262,9 @@ footer {
     page-break-inside: avoid !important;
   }
   .profile-pic {
-    width: 110px !important;
-    height: 110px !important;
-    margin-bottom: 10px !important;
+    width: 160px !important;
+    height: 160px !important;
+    margin-bottom: 1px !important;
     border: 3px solid #1e90ff !important;
     box-shadow: none !important;
   }
@@ -1622,6 +1633,16 @@ footer {
   .contact-value a {
     text-decoration: none !important;
     color: #fff !important;
+  }
+}
+
+/* ----- Tylko do druku ----- */
+.only-print {
+  display: none !important;
+}
+@media print {
+  .only-print {
+    display: block !important;
   }
 }
 
