@@ -561,6 +561,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const hint = document.createElement('div');
     hint.className = 'click-hint';
     hint.innerHTML = `
+      <div class="click-hint-text" style="color:#fff; font-size:1.08em; font-weight:600; text-align:center; margin-bottom:2px; letter-spacing:0.2px;">
+        Kliknij tutaj
+      </div>
       <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 15V3M12 15L8 11M12 15L16 11" stroke="white" stroke-width="2" stroke-linecap="round"/>
         <path d="M5 18H19C20.1046 18 21 18.8954 21 20V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V20C3 18.8954 3.89543 18 5 18Z" fill="white"/>
@@ -693,3 +696,16 @@ function spawnCookie() {
       cookie.remove();
     }, animDuration * 1000 + 200);
 }
+
+// Animacja 3D "moneta" dla zdjęcia profilowego - obrót od razu po załadowaniu strony, bez opóźnienia
+document.addEventListener('DOMContentLoaded', function() {
+    const profilePic = document.querySelector('.profile-pic');
+    if (profilePic) {
+        profilePic.style.transition = 'transform 2.2s cubic-bezier(.68,-0.55,.27,1.55)';
+        profilePic.style.transformStyle = 'preserve-3d';
+        profilePic.style.transform = 'rotateY(360deg)';
+        setTimeout(() => {
+            profilePic.style.transform = '';
+        }, 2200);
+    }
+});
