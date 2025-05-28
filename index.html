@@ -3,99 +3,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CV Rafała Czerniaka - Inżynier Systemów IT z doświadczeniem w zarządzaniu infrastrukturą informatyczną">
-    <meta property="og:title" content="CV - Rafał Czerniak">
-    <meta property="og:description" content="Inżynier Systemów IT specjalizujący się w zarządzaniu infrastrukturą informatyczną">
-    <meta property="og:type" content="website">
     <title>CV - Rafał Czerniak</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animated-bubbles-bg.css">
+    <!-- Font Awesome dla ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/rafiziom/RafalCV.github.io/main/img/favicon.png">
 </head>
 
 <body>
-    <div class="geometric-background" id="geometric-background" aria-hidden="true"></div>
-    <div class="particles" id="particles" aria-hidden="true"></div>
-    <div class="gradient-overlay" aria-hidden="true"></div>
-    
-    <div class="cv-container" role="main">
+    <div class="geometric-background" id="geometric-background"></div>
+    <div class="particles" id="particles"></div>
+    </div>
+    <div class="cv-container">
         <!-- LEWA KOLUMNA (CIEŃSZA) -->
-        <aside class="sidebar" role="complementary">
+        <aside class="sidebar">
             <div class="profile-section" style="position:relative;">
-                <img src="img/profile.jpg" alt="Zdjęcie profilowe - Rafał Czerniak" class="profile-pic" loading="lazy">
+                <img src="img/profile.jpg" alt="Zdjęcie profilowe - Rafał Czerniak" class="profile-pic">
                 <h1 class="name-title" style="margin-bottom: 8px;">RAFAŁ CZERNIAK</h1>
                 <p class="job-subtitle">INŻYNIER SYSTEMÓW IT</p>              
             </div>
 
             <!-- Karta kontaktowa w stylu jak pozostałe -->
             <section class="contact-info-card card only-print">
-                <h3><i class="fas fa-address-book icon" aria-hidden="true"></i> Kontakt</h3>
+                <h3><i class="fas fa-address-book icon"></i> Kontakt</h3>
                 <ul style="list-style: none; padding-left: 0; margin: 0;">
                     <li style="margin-bottom: 10px; display: flex; align-items: center;">
-                        <span class="icon" style="margin-right: 10px;"><i class="fas fa-phone" aria-hidden="true"></i></span>
+                        <span class="icon" style="margin-right: 10px;"><i class="fas fa-phone"></i></span>
                         <span>
                             <a href="tel:+48732683495" style="color:inherit; text-decoration:underline;">+48 732 683 495</a>
                         </span>
                     </li>
                     <li style="margin-bottom: 10px; display: flex; align-items: center;">
-                        <span class="icon" style="margin-right: 10px;"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+                        <span class="icon" style="margin-right: 10px;"><i class="fas fa-envelope"></i></span>
                         <span>
                             <a href="mailto:czerniakrafal94@gmail.com" style="color:inherit; text-decoration:underline;">czerniakrafal94@gmail.com</a>
                         </span>
                     </li>
                     <li style="display: flex; align-items: center;">
-                        <span class="icon" style="margin-right: 10px;"><i class="fas fa-map-marker-alt" aria-hidden="true"></i></span>
+                        <span class="icon" style="margin-right: 10px;"><i class="fas fa-map-marker-alt"></i></span>
                         <span>Ogórkowa 44i/1, 04-998 Warszawa</span>
                     </li>
                 </ul>
             </section>
                 
-            <!-- Kontakt -->       
-            <section class="acontact-me card no-print">
-                <div class="contact-card no-print" style="overflow:hidden; max-width:100%; box-sizing:border-box; position:relative;">
-                    <!-- Reszta sekcji kontaktowej pozostaje bez zmian -->
-                    [... Reszta kodu pozostaje bez zmian ...]
-                </div>
+         <!-- Kontakt -->       
+<section class="acontact-me card no-print">
+<div class="contact-card no-print" style="overflow:hidden; max-width:100%; box-sizing:border-box; position:relative;">
+  <div class="content" style="will-change:transform; max-width:100vw; box-sizing:border-box;">
+    <div class="front">
+      <div class="contact-header">
+        <div class="contact-title">Kontakt</div>
+        <div class="contact-subtitle">Skontaktuj się ze mną</div>
+      </div>
+      
+      <div class="contact-info" style="position:relative;">
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="contact-label">Telefon</div>
+            <div class="contact-value">
+              <a href="tel:+48732683495">+48 732 683 495</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <div class="contact-label">E-mail</div>
+            <div class="contact-value">
+              <a href="mailto:czerniakrafal94@gmail.com">czerniakrafal94@gmail.com</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+             <div class="contact-label">Adres</div>
+            <div class="contact-value">Ogórkowa 44i/1, 04-998 Warszawa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="back">
+      <div class="back-content no-print" style="justify-content: flex-start; padding-top: 32px;">
+
+        <!-- Nagłówek Kontakt jak w innych sekcjach, przesunięty trochę w dół -->
+        <h3 class="contact-back-title no-print" style="margin-top: 0; margin-bottom: 18px; align-self: flex-start;">
+          <i class="fas fa-phone icon" style="margin-right:10px;"></i>Kontakt
+        </h3>
+        <svg width="123px" height="123px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.00015"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 12.5V13H3V12.5H2ZM7 12.5V13H8V12.5H7ZM3 12.5V11.9999H2V12.5H3ZM7 11.9997V12.5H8V11.9997H7ZM5 10C6.10466 10 7 10.8952 7 11.9997H8C8 10.3427 6.65677 9 5 9V10ZM3 11.9999C3 10.8953 3.8954 10 5 10V9C3.34318 9 2 10.343 2 11.9999H3ZM5 4C3.89543 4 3 4.89543 3 6H4C4 5.44772 4.44772 5 5 5V4ZM7 6C7 4.89543 6.10457 4 5 4V5C5.55228 5 6 5.44772 6 6H7ZM5 8C6.10457 8 7 7.10457 7 6H6C6 6.55228 5.55228 7 5 7V8ZM5 7C4.44772 7 4 6.55228 4 6H3C3 7.10457 3.89543 8 5 8V7ZM1.5 3H13.5V2H1.5V3ZM14 3.5V11.5H15V3.5H14ZM13.5 12H1.5V13H13.5V12ZM1 11.5V3.5H0V11.5H1ZM1.5 12C1.22386 12 1 11.7761 1 11.5H0C0 12.3284 0.671574 13 1.5 13V12ZM14 11.5C14 11.7761 13.7761 12 13.5 12V13C14.3284 13 15 12.3284 15 11.5H14ZM13.5 3C13.7761 3 14 3.22386 14 3.5H15C15 2.67157 14.3284 2 13.5 2V3ZM1.5 2C0.671573 2 0 2.67157 0 3.5H1C1 3.22386 1.22386 3 1.5 3V2ZM9 6H12V5H9V6ZM9 9H12V8H9V9ZM0 15H15V14H0V15ZM3 0V2.5H4V0H3ZM11 0V2.5H12V0H11Z" fill="#ffffff"></path> </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
             </section>
 
             <section class="about-me card">
-                <!-- Reszta sekcji about-me pozostaje bez zmian -->
-                [... Reszta kodu pozostaje bez zmian ...]
+                <h3><i class="fas fa-user icon"></i> Podsumowanie Zawodowe</h3>
+                <p>
+                    Aktualnie specjalizuję się w zarządzaniu infrastrukturą informatyczną oraz
+                    wsparciu na różnych poziomach organizacji. Specjalizuję się też w
+                    projektowaniu, wdrażaniu oraz utrzymaniu rozwiązań serwerowych, sieciowych i
+                    chmurowych. Posiadam bogate doświadczenie w administracji systemami
+                    Windows/Linux, automatyzacji i naprawy procesów.
+                </p>
+                <p>
+                    W swojej karierze jestem zorientowany na rozwiązywanie problemów oraz ciągłe
+                    doskonalenie procesów. Cechuje mnie samodzielność, umiejętność szybkiego
+                    uczenia się, pomoc innym, chęć rozwoju oraz wysokie kompetencje komunikacyjne.
+                </p>
             </section>
 
             <section class="skills card">
-                <!-- Reszta sekcji skills pozostaje bez zmian -->
-                [... Reszta kodu pozostaje bez zmian ...]
+                <h3><i class="fas fa-cogs icon"></i> Umiejętności</h3>
+                <h4>Systemy Operacyjne:</h4>
+                <ul>
+                    <li>Microsoft Windows (11, 10, 8, 7, Mobile)</li>
+                    <li>Windows Server</li>
+                    <li>Linux (Debian, Ubuntu)</li>
+                </ul>
+                <h4>Administracja i Chmura:</h4>
+                <ul>
+                    <li>O365/On-prem, MS Exchange</li>
+                    <li>Azure AD, Intune, SCCM</li>
+                    <li>Rozwiązania chmurowe (np. GCP)</li>
+                    <li>Wirtualizacja</li>
+                </ul>
+                <h4>Narzędzia i Technologie:</h4>
+                <ul>
+                    <li>Skrypty: MS-DOS, PowerShell (podst.)</li>
+                    <li>DevOps/CI/CD: Git, GitHub, Kubernetes, Docker, Terraform, Ansible</li>
+                    <li>Monitoring IT: Nagios-Check MK, Grafana, Zabbix</li>
+                    <li>Systemy druku: HPAC, HPDC, WJA</li>
+                    <li>ITSM/Knowledge Mgmt: ServiceNow, Jira, Cherwell, Confluence</li>
+                    <li>Cisco CUCM (podst.)</li>
+                </ul>
+                <h4>Inne:</h4>
+                <ul>
+                    <li>Budowa i konfiguracja stacji roboczych/serwerów</li>
+                    <li>Analiza kodu i modyfikacje</li>
+                    <li>Praktyczna wiedza z zakresu sieci komputerowych</li>
+                    <li>Czytanie i tworzenie dokumentacji technicznej</li>
+                </ul>
+                <h4>Językowe:</h4>
+                <ul>
+                    <li>Polski - Ojczysty</li>
+                    <li>Angielski - Średnio zaawansowany</li>
+                </ul>
             </section>
 
             <section class="interests card">
-                <!-- Reszta sekcji interests pozostaje bez zmian -->
-                [... Reszta kodu pozostaje bez zmian ...]
+                <h3><i class="fas fa-heart icon"></i> Zainteresowania / O Mnie</h3>
+                <p>
+                    <i class="fas fa-quote-left" style="color:#1e90ff; margin-right:6px;"></i>
+                    zawsze staram się najpierw zrozumieć zagadnienie, przeanalizować je, znaleźć błędy i ryzyka a następnie przygotować plan i wdrożyć w życie
+                    <i class="fas fa-quote-right" style="color:#1e90ff; margin-left:6px;"></i>
+                </p>
+                <ul style="list-style: none; padding-left: 0; margin: 0;">
+                    <li style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span style="width: 26px; min-width: 26px; display: flex; align-items: center; justify-content: flex-start;">
+                            <i class="fas fa-tools" style="color:#1e90ff;"></i>
+                        </span>
+                        <span>Majsterkowanie, naprawy i modyfikacja sprzętu elektronicznego</span>
+                    </li>
+                    <li style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span style="width: 26px; min-width: 26px; display: flex; align-items: center; justify-content: flex-start;">
+                            <i class="fas fa-cube" style="color:#1e90ff;"></i>
+                        </span>
+                        <span>Druk 3D</span>
+                    </li>
+                    <li style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span style="width: 26px; min-width: 26px; display: flex; align-items: center; justify-content: flex-start;">
+                            <i class="fas fa-mobile-alt" style="color:#1e90ff;"></i>
+                        </span>
+                        <span>Smartfony: software (Android) i hardware (naprawa/modyfikacje)</span>
+                    </li>
+                    <li style="display: flex; align-items: center;">
+                        <span style="width: 26px; min-width: 26px; display: flex; align-items: center; justify-content: flex-start;">
+                            <i class="fas fa-brain" style="color:#1e90ff;"></i>
+                        </span>
+                        <span>Psychologia</span>
+                    </li>
+                </ul>
             </section>
+            <div id="print-qr-info">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://rafiziom.github.io/RafalCV.github.io/" alt="QR code: pełna wersja CV">
+              <div class="qr-desc">
+                Wersja przygotowana do druku.<br>
+                Pełna wersja online po zeskanowaniu kodu QR.
+              </div>
+            </div>
         </aside>
 
         <!-- PRAWA KOLUMNA (SZERSZA) -->
         <main class="main-content">
-            <!-- Reszta zawartości main-content pozostaje bez zmian -->
-            [... Reszta kodu pozostaje bez zmian ...]
+            <section class="experience">
+                <h2><i class="fas fa-briefcase icon-main"></i> Doświadczenie Zawodowe</h2>
+                <div class="timeline">
+                    <div class="timeline-item card">
+                        <h4>Inzynier Systemów IT</h4> 
+                        <p class="company-date">Media Saturn Holding Polska | Marzec 2023 - Obecnie</p>
+                        <ul>
+                            <li>Utrzymanie systemów i aplikacji</li>
+                            <li>Zarządzanie monitoringiem</li>
+                            <li>Zarządzanie infrastrukturą IT</li>
+                            <li>Rewizja, modyfikacja i implementacja kodu</li>
+                            <li>Wsparcie w projektach, prowadzenie mniejszych wdrożeń</li>
+                            <li>Analizowanie logów i metryk, współpraca z developerami</li>
+                            <li>Administracja środowiskiem wirtualizacyjnym</li>
+                            <li>Planowanie skalowania infrastruktury</li>
+                            <li>Prowadzenie dokumentacji technicznych</li>
+                            <li>Incydent oraz problem management</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item card">
+                        <h4>Kierownik Service Desk</h4>
+                        <p class="company-date">Euvic IT Projekt MSHP | Marzec 2021 - Marzec 2022</p>
+                        <ul>
+                            <li>Kierowanie, koordynacja, dbanie o utrzymanie i rozwój projektu</li>
+                            <li>Obsługa procesu zarządzania incydentami</li>
+                            <li>Dbanie o utrzymanie zobowiązań wobec mierników i klienta, prowadzenie i analiza raportów</li>
+                            <li>Utrzymanie i rozwój kompetencji w zespole</li>
+                            <li>Prowadzenie szkoleń i dokumentacji technicznej</li>
+                            <li>Dbanie o dobrą atmosferę i pozytywną motywację wśród członków zespołu</li>
+                            <li>Incydent oraz problem management</li>
+                            <li>Pomoc we wdrożeniach, realizacja zadań dodatkowych</li>
+                            <li>Realizacja i obsługa zgłoszeń w systemie ITSM</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item card">
+                        <h4>Starszy Specjalista Service Desk</h4>
+                        <p class="company-date">Euvic IT Projekt MSHP | Grudzień 2019 - Marzec 2021</p>
+                        <ul>
+                            <li>Koordynacja, analiza Incydentów i problemów, pośredniczenie w wymianie informacji między liniami wsparcia, monitorowanie SLA</li>
+                            <li>Monitorowanie, koordynacja i zarządzanie awariami</li>
+                            <li>Administrowanie użytkownikami i systemami klienta</li>
+                            <li>Tworzenie instrukcji bazy wiedzy</li>
+                            <li>Pośredni i bezpośredni kontakt z użytkownikiem</li>
+                            <li>Konfigurowanie ustawień sprzętów i komputerów w organizacji</li>
+                            <li>Zarządzanie systemem Call Center</li>
+                            <li>Administrowanie serwerami</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item card">
+                        <h4>Analityk pierwszej linii wsparcia</h4>
+                        <p class="company-date">Qumak S.A projekt PZU | Maj 2017 - Luty 2018</p>
+                        <ul>
+                            <li>Analiza i diagnozowanie problemów zgłaszanych przez użytkowników</li>
+                            <li>Przekazywanie zgłoszeń do odpowiednich grup wsparcia</li>
+                            <li>Obsługa klienta zgodnie z etyką firmy oraz dbanie o najwyższą jakość projektu</li>
+                            <li>Administrowanie użytkownikami i systemami klienta PZU</li>
+                            <li>Konfiguracja i instalacja oprogramowania</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="education">
+                <h2><i class="fas fa-graduation-cap icon-main"></i> Wykształcenie</h2>
+                <div class="timeline">
+                    <div class="timeline-item card">
+                        <h4>Tytuł Technika BHP</h4>
+                        <p class="company-date">Szkoła policealna Centrum Nauki i Biznesu Żak | Styczeń 2017 - Marzec 2017</p>
+                        <p>Dyplom potwierdzający kwalifikacje</p>
+                    </div>
+
+                    <div class="timeline-item card">
+                        <h4>Tytuł Technika Elektryka</h4>
+                        <p class="company-date">Technikum nr. 2 im. Marii Skłodowskiej Curie w Płocku | Styczeń 2009 - Grudzień 2013</p>
+                        <p>Dyplom europejski potwierdzający kwalifikacje</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="references">
+                <h2><i class="fas fa-thumbs-up icon-main"></i> Referencje</h2>
+                <div class="reference-list">
+                     <div class="reference-item card">
+         <!-- <div class="reference-avatar">MW</div> -->
+         <p><strong>Michał Wojciechowski</strong></p>
+         <p class="reference-position">Dyrektor oddziału w Płocku, Euvic IT</p>
+         <a class="reference-email" href="mailto:Michal.Wojciechowski@euvic.pl">Michal.Wojciechowski@euvic.pl</a>
+     </div>
+     <div class="reference-item card">
+        <!-- <div class="reference-avatar">MS</div> -->
+        <p><strong>Marcin Szczygieł</strong></p>
+        <p class="reference-position">IT Service Management, MMS Technology GmbH</p>
+        <a class="reference-email" href="mailto:szczygielm@media-saturn.com">szczygielm@media-saturn.com</a>
+    </div>
+    <div class="reference-item card">
+        <!-- <div class="reference-avatar">DR</div> -->
+        <p><strong>Dariusz Ryczkowski</strong></p>
+        <p class="reference-position">Projekt Menadżer, Media Saturn Holding Polska</p>
+        <a class="reference-email" href="mailto:ryczkowski@media-saturn.com">ryczkowski@media-saturn.com</a>
+    </div>
+                </div>
+            </section>
+
+            <footer>
+                <p class="clause">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu prowadzenia rekrutacji na aplikowane przeze mnie stanowisko.</p>
+            </footer>
+
         </main>
     </div>
 
     <!-- Przyciski przewijania do góry i drukowania -->
-    <button id="scrollToTopBtn" title="Do góry" aria-label="Przewiń do góry strony">
-        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    <button id="scrollToTopBtn" title="Do góry">
+      <i class="fas fa-arrow-up"></i>
     </button>
-    <button id="printBtn" title="Drukuj CV" aria-label="Wydrukuj CV">
-        <i class="fas fa-print" aria-hidden="true"></i>
+    <button id="printBtn" title="Drukuj CV">
+      <i class="fas fa-print"></i>
     </button>
 
     <!-- Popup z ciasteczkami -->
-    <div id="cookie-popup" class="cookie-popup cookie-popup-right" role="dialog" aria-label="Preferencje ciasteczek">
-        <!-- Reszta kodu popup'u pozostaje bez zmian -->
-        [... Reszta kodu pozostaje bez zmian ...]
+    <div id="cookie-popup" class="cookie-popup cookie-popup-right">
+      <div class="cookie-popup-content">
+        <div class="cookie-popup-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <path d="M43 22c0 11.6-9.4 21-21 21S1 33.6 1 22C1 10.4 10.4 1 22 1c0 4.2 3 7.2 7.2 7.2 0 3 2.4 5.4 5.4 5.4 0 3 2.4 5.4 5.4 5.4z" fill="#f6c177"/>
+            <circle cx="13" cy="16" r="2.2" fill="#a86b2d"/>
+            <circle cx="26" cy="12" r="1.5" fill="#a86b2d"/>
+            <circle cx="31" cy="26" r="1.7" fill="#a86b2d"/>
+            <circle cx="18" cy="29" r="1.3" fill="#a86b2d"/>
+            <circle cx="34" cy="17" r="1.2" fill="#a86b2d"/>
+          </svg>
+        </div>
+        <div class="cookie-popup-text">
+          <strong>Czy lubisz Ciasteczka?</strong>
+          <p>Na szczęście moja strona z nich nie korzysta,<br>
+          ale możesz odpowiedzieć na pytanie czy je lubisz i z chęcią je zjesz!</p>
+        </div>
+        <div class="cookie-popup-actions">
+          <button id="cookie-no" class="cookie-btn cookie-btn-no">Nie</button>
+          <button id="cookie-yes" class="cookie-btn cookie-btn-yes">Tak</button>
+        </div>
+      </div>
     </div>
-
     <script src="js/script.js"></script>
+    <script>
+      // Popup obsługa
+      document.getElementById('cookie-yes').onclick = function() {
+        document.getElementById('cookie-popup').style.display = 'none';
+        for (let i = 0; i < 18; i++) {
+          setTimeout(() => {
+            if (typeof spawnCookie === 'function') {
+              spawnCookie();
+            }
+          }, Math.random() * 1200);
+        }
+      };
+      document.getElementById('cookie-no').onclick = function() {
+        document.getElementById('cookie-popup').style.display = 'none';
+      };
+    </script>
 </body>
 </html>

@@ -1,43 +1,1649 @@
-/* Dodajemy na początku pliku style dla dostępności */
+/* ----- Globalne Ustawienia i Zmienne Kolorów ----- */
 :root {
     /* Główna paleta niebieskich odcieni */
-    --primary-blue: #0a3d62;   
-    --secondary-blue: #1e90ff; 
-    --light-blue: #87cefa;    
-    --pale-blue-bg: #f0f8ff;  
+    --primary-blue: #0a3d62;   /* Głęboki, ciemny niebieski dla tła sidebara i głównych akcentów */
+    --secondary-blue: #1e90ff; /* Jaśniejszy, żywszy niebieski dla nagłówków, linków, akcentów kart */
+    --light-blue: #87cefa;    /* Jasny błękit dla subtelnych elementów, linii czasu */
+    --pale-blue-bg: #f0f8ff;  /* Bardzo jasny, prawie biały niebieski dla tła kart w prawej kolumnie */
 
     /* Kolory tekstu */
-    --text-color-dark: #333333;
-    --text-color-light: #f8f9fa;
-    --text-color-medium: #555555;
+    --text-color-dark: #333333; /* Ciemnoszary dla głównego tekstu - lepszy niż czarny */
+    --text-color-light: #f8f9fa; /* Bardzo jasny dla tekstu na ciemnych tłach */
+    --text-color-medium: #555555; /* Średnio szary dla mniej ważnych informacji */
 
     /* Inne */
-    --bg-color-main: #ffffff;      
-    --bg-color-page: #e9ecef;    
+    --bg-color-main: #ffffff;      /* Białe tło prawej kolumny dla maksymalnego kontrastu */
+    --bg-color-page: #e9ecef;    /* Jasnoszare tło całej strony */
     --border-color: #dee2e6;
-    --card-shadow: 0 6px 18px rgba(0, 50, 100, 0.12);
-    --card-shadow-hover: 0 8px 25px rgba(0, 50, 100, 0.18);
-    
-    /* Nowe zmienne dla dostępności */
-    --focus-outline: 3px solid var(--secondary-blue);
+    --card-shadow: 0 6px 18px rgba(0, 50, 100, 0.12); /* Ładniejszy, bardziej rozproszony cień */
+    --card-shadow-hover: 0 8px 25px rgba(0, 50, 100, 0.18); /* Cień przy najechaniu */
 }
 
-/* Poprawiony focus dla wszystkich interaktywnych elementów */
-a:focus,
-button:focus {
-    outline: var(--focus-outline);
-    outline-offset: 2px;
+
+        body {
+            font-family: 'Open Sans', 'Arial', sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background: #1a152c;
+            color: var(--text-color-dark);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        .content {
+            color: white;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .geometric-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.2;
+            transform-origin: center;
+        }
+
+        .square {
+            width: 40px;
+            height: 40px;
+            background: #f72585;
+            animation: rotate 20s infinite linear;
+        }
+
+        .circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #4cc9f0;
+            animation: pulse 15s infinite alternate;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 50px solid #7209b7;
+            animation: float 12s infinite ease-in-out;
+        }
+
+        .rectangle {
+            width: 80px;
+            height: 30px;
+            background: #4361ee;
+            animation: slide 18s infinite linear;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) translateX(20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0px) translateX(0px) rotate(360deg);
+            }
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(-100px) rotate(0deg);
+            }
+            50% {
+                transform: translateX(100px) rotate(180deg);
+            }
+            100% {
+                transform: translateX(-100px) rotate(360deg);
+            }
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            opacity: 0.5;
+            animation: sparkle 8s infinite linear;
+        }
+
+        @keyframes sparkle {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, #1a1a2e 80%);
+            z-index: 5;
+            animation: pulse-overlay 10s infinite alternate;
+        }
+
+        @keyframes pulse-overlay {
+            0% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+/* Upewnij się, że .cv-container jest nad tłem */
+.cv-container {
+  display: flex; /* PRZYWRÓĆ FLEX! */
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--bg-color-main);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  position: relative;
+  z-index: 1;
 }
 
-/* Dodajemy prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+/* ----- Lewa Kolumna (Sidebar) ----- */
+.sidebar {
+    flex: 0 0 33%; /* Nieco szersza lewa kolumna */
+    background-color: var(--primary-blue);
+    color: var(--text-color-light);
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.profile-section { /* Usunięto klasę .card, stylizujemy bezpośrednio */
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05); /* Subtelne tło dla sekcji profilowej */
+    border-radius: 8px;
+}
+
+.profile-pic {
+    width: 220px; /* Większe zdjęcie */
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--secondary-blue); /* Wyraźniejsza ramka */
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(30, 144, 255, 0.25), 0 2px 8px rgba(0,0,0,0.18);
+}
+
+.name-title { /* Zmieniono z h2 na h1 w HTML dla semantyki */
+    margin-bottom: 8px;
+    font-size: 2em;
+    color: #fff !important;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.job-subtitle {
+    font-size: 1.1em;
+    color: var(--light-blue);
+    margin-top: 0;
+    font-weight: 400;
+}
+
+.sidebar section.card { /* Karty w sidebarze */
+    background-color: rgba(255, 255, 255, 0.08); /* Lekko przezroczyste tło */
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-blue); /* Akcent */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.sidebar section.card:hover {
+    background: rgba(255,255,255,0.18);
+    box-shadow: 0 4px 16px rgba(30,144,255,0.10);
+    transform: translateY(-2px) scale(1.01);
+}
+
+.sidebar h3 {
+    color: var(--text-color-light);
+    border-bottom: 2px solid var(--secondary-blue);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-size: 1.35em; /* Wyraźniejsze nagłówki sekcji */
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.sidebar .icon {
+    margin-right: 12px;
+    color: var(--light-blue);
+    width: 22px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+.sidebar section.contact-me p,
+.sidebar section.interests p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 100px;
+}
+
+.sidebar section.about-me p,
+.sidebar section.interests p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+
+.sidebar a {
+    color: var(--text-color-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.sidebar a:hover {
+    color: var(--light-blue);
+    text-decoration: underline;
+}
+
+/* --- LEPSZA CZYTELNOŚĆ SEKCJI UMIEJĘTNOŚCI --- */
+.skills ul {
+  display: block;
+  margin: 0 0 10px 0;
+  padding-left: 18px;
+  list-style: none;
+}
+.skills ul li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 4px;
+  background: none;
+  color: #fff;
+  border-radius: 0;
+  font-size: 1em;
+  font-weight: 500;
+  box-shadow: none;
+  display: block;
+  transition: none;
+}
+.skills ul li::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 7px;
+  height: 7px;
+  background: #1e90ff;
+  border-radius: 50%;
+}
+
+/* ----- Prawa Kolumna (Main Content) ----- */
+.main-content {
+    flex: 1;
+    padding: 35px;
+    box-sizing: border-box;
+}
+
+.main-content h2 {
+    color: var(--primary-blue);
+    border-bottom: 3px solid var(--secondary-blue);
+    padding-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.9em; /* Większe, bardziej wyraziste nagłówki */
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+}
+
+.icon-main {
+    margin-right: 18px;
+    color: var(--secondary-blue);
+    font-size: 1.1em;
+}
+
+/* ----- Główne Karty (prawa kolumna) ----- */
+.main-content .card {
+    background-color: var(--pale-blue-bg); /* Jaśniejsze tło karty */
+    padding: 25px; /* Domyślny padding dla kart */
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    /* border: 1px solid #e0f0ff; */ /* Usunięto lub zakomentowano, jeśli pasek akcentujący wystarczy */
+    border-left: none; /* Usuwamy globalny lewy border z kart */
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-out;
+    position: relative; /* Dla poprawnego działania z-index pseudo-elementów */
+}
+
+.main-content .card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-3px); /* Lekkie uniesienie karty przy najechaniu */
+}
+
+/* ----- Linia Czasu (Nowa Wersja) ----- */
+.timeline {
+    position: relative;
+    margin-left: 18px;
+}
+
+.timeline-item.card {
+    padding-left: 40px; /* Zwiększony padding dla miejsca na pasek i znacznik */
+    position: relative;
+    border-left: none;
+}
+
+.timeline-item.card::before { /* Pionowy pasek akcentujący */
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: var(--light-blue);
+    border-radius: 3px 0 0 3px;
+    z-index: 1;
+}
+
+.timeline-item.card::after { /* "Kropka" na osi czasu */
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 22px;
+    width: 18px;
+    height: 18px;
+    background-color: var(--secondary-blue);
+    border: 3px solid var(--pale-blue-bg); /* Tło karty, aby "przebić" pasek */
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0 3px var(--secondary-blue), 0 2px 5px rgba(0,0,0,0.10);
+}
+
+.timeline-item h4 {
+    margin-top: 0;
+    margin-bottom: 6px;
+    color: var(--primary-blue);
+    font-size: 1.3em;
+    font-weight: 600;
+    position: relative;
+    z-index: 3;
+}
+
+.company-date {
+    font-size: 0.95em;
+    color: var(--text-color-medium); /* Domyślny kolor */
+    margin-bottom: 12px;
+    display: block;
+    font-style: italic;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+    position: relative;
+    z-index: 3;
+}
+
+/* Style dla wyróżnionych firm (dodane przez JS) */
+.company-date.highlight-euvic {
+    color: #007bff; /* Wyraźniejszy niebieski */
+    font-weight: 600;
+}
+
+.company-date.highlight-media-saturn {
+    color: #d9534f; /* Czerwony akcent dla Media Saturn/MMS */
+    font-weight: 600;
+}
+
+.company-date.highlight-qumak {
+    color: #f0ad4e; /* Pomarańczowy dla Qumak */
+    font-weight: 600;
+}
+
+.timeline-item ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 3;
+}
+.timeline-item ul li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 22px;
+}
+.timeline-item ul li::before {
+    content: "›";
+    color: #1e90ff;
+    font-weight: bold;
+    font-size: 1.3em;
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+}
+
+/* Specjalne dostosowanie dla kart, które nie są timeline-item (np. Referencje), jeśli chcemy inny padding */
+.main-content section:not(.experience):not(.education) .card {
+    padding-left: 25px; /* Domyślny padding dla kart nie będących na osi czasu */
+}
+.main-content section.references .card {
+     padding-left: 25px;
+}
+
+/* ----- Referencje ----- */
+.reference-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+  margin-top: 12px;
+}
+
+.reference-item.card {
+  flex: 1 1 200px;
+  min-width: 190px;
+  max-width: 270px;
+  background: #e3f2fd;
+  border-left: 4px solid #1976d2;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(30, 144, 255, 0.10);
+  padding: 12px 14px 18px 14px;
+  margin: 0;
+  transition: box-shadow 0.3s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  min-height: 110px;
+  position: relative;
+}
+
+.reference-item.card:hover {
+  box-shadow: 0 6px 24px rgba(30, 144, 255, 0.18);
+  transform: translateY(-3px) scale(1.03);
+  background: #bbdefb;
+}
+.reference-item.card strong {
+  font-size: 1em;
+  color: #1976d2;
+  margin-bottom: 2px;
+  display: block;
+}
+.reference-item.card p {
+  margin: 2px 0 0 0;
+  color: #333;
+  font-size: 0.98em;
+  word-break: break-word;
+}
+.reference-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1976d2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 8px;
+  margin-right: 10px;
+  float: left;
+}
+.reference-item .reference-position {
+  color: #1976d2;
+  background: #e3f2fd;
+  font-style: normal;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+  display: block;
+  letter-spacing: 0.1px;
+  text-align: left;
+  font-size: 0.95em;
+}
+
+.reference-item .reference-email {
+  font-style: italic;
+  color: #fff;
+  background: #1976d2;
+  border-radius: 14px;
+  padding: 3px 10px 3px 10px;
+  margin-top: auto;
+  margin-bottom: 0;
+  display: inline-block;
+  align-self: flex-start;
+  text-align: left;
+  text-decoration: none;
+  font-size: 0.93em;
+  box-shadow: 0 2px 6px rgba(30,144,255,0.08);
+  border: 1px solid #1565c0;
+  transition: background 0.2s, color 0.2s;
+  word-break: break-all;
+  position: static;
+}
+
+.reference-item .reference-email:hover {
+  background: #fff;
+  color: #1976d2;
+  border-color: #1976d2;
+  text-decoration: underline;
+}
+@media (max-width: 700px) {
+  .reference-list {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .reference-item.card {
+    max-width: 100%;
+  }
+}
+
+/* ----- Stopka z Klauzulą ----- */
+footer {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+.clause {
+    font-size: 0.85em;
+    color: var(--text-color-medium);
+}
+
+
+/* ----- Responsywność ----- */
+@media (max-width: 992px) {
+    .sidebar {
+        flex: 0 0 38%;
+    }
+    .main-content {
+        padding: 30px;
+    }
+    .main-content h2 {
+        font-size: 1.7em;
+    }
+    .timeline-item h4 {
+        font-size: 1.2em;
     }
 }
 
-/* Reszta istniejących styli pozostaje bez zmian */
-[... Reszta kodu pozostaje bez zmian ...]
+@media (max-width: 768px) {
+    .cv-container {
+        flex-direction: column;
+        margin: 10px;
+        padding: 0;
+    }
+    body {
+        padding: 0;
+    }
+
+    /* Zmieniamy kolejność: main-content (doświadczenie) jako pierwsze */
+    .main-content {
+        order: 1;
+    }
+    .sidebar {
+        order: 2;
+    }
+
+    .sidebar, .main-content {
+        flex: 1 0 100%;
+        border-radius: 0;
+    }
+    .sidebar {
+        padding: 25px;
+    }
+    .main-content {
+        padding: 25px;
+    }
+
+    .timeline-item.card {
+        padding-left: 35px;
+    }
+    .timeline-item.card::after {
+        left: -9px;
+        top: 18px;
+        width: 18px;
+        height: 18px;
+    }
+    .main-content .card { /* Ogólne karty na mobilkach */
+        padding: 20px; /* Zmniejszony padding */
+    }
+    /* Jeśli .timeline-item.card ma specjalny padding-left, trzeba go zachować */
+    .timeline-item.card {
+        padding-left: 35px !important; /* Utrzymanie paddingu dla osi czasu */
+    }
+    .main-content section:not(.experience):not(.education) .card,
+    .main-content section.references .card {
+        padding-left: 20px !important; /* Domyślny padding dla innych kart */
+    }
+
+
+    .profile-pic {
+        width: 160px;
+        height: 160px;
+    }
+    .name-title {
+        font-size: 1.8em;
+    }
+    .main-content h2, .sidebar h3 {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 15px;
+    }
+    .sidebar, .main-content {
+        padding: 20px;
+    }
+    .main-content .card {
+        padding: 18px;
+    }
+     /* Jeśli .timeline-item.card ma specjalny padding-left, trzeba go zachować */
+    .timeline-item.card {
+        padding-left: 30px !important;
+    }
+    .main-content section:not(.experience):not(.education) .card,
+    .main-content section.references .card {
+        padding-left: 18px !important;
+    }
+
+    .timeline-item.card::after {
+        left: -7px;
+        top: 16px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .main-content h2 {
+        font-size: 1.4em;
+    }
+     .sidebar h3 {
+        font-size: 1.25em;
+    }
+    .timeline-item h4 {
+        font-size: 1.1em;
+    }
+}
+/* ----- Przyciski przewijania do góry i drukowania ----- */
+#scrollToTopBtn, #printBtn {
+  position: fixed;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background: #2196f3;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 1000;
+  font-size: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+#scrollToTopBtn:hover, #printBtn:hover {
+  background: #1565c0;
+}
+#scrollToTopBtn {
+  bottom: 100px;
+}
+#printBtn {
+  bottom: 40px;
+  display: flex; /* Print zawsze widoczny */
+}
+
+/* Punktory (niebieskie strzałki) dla doświadczenia zawodowego */
+.timeline-item ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.timeline-item ul li {
+  position: relative;
+  padding-left: 1.2em;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+.timeline-item ul li::before {
+  content: "›";
+  color: #1e90ff;
+  font-weight: bold;
+  font-size: 1.3em;
+  position: absolute;
+  left: 0;
+  top: -0.2em;
+}
+
+/* --- POPUP Z CIASTECZKAMI LEWA STRONA --- */
+.cookie-popup {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  z-index: 9999;
+  background: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  pointer-events: none;
+}
+.cookie-popup-content {
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px rgba(30, 144, 255, 0.18), 0 2px 8px rgba(0,0,0,0.10);
+  padding: 28px 28px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 290px;
+  max-width: 370px;
+  pointer-events: all;
+  position: relative;
+  border: 2px solid #f6c177;
+  transition: box-shadow 0.2s;
+}
+.cookie-popup-content:hover {
+  box-shadow: 0 12px 36px rgba(246,193,119,0.18), 0 4px 16px rgba(30,144,255,0.10);
+}
+.cookie-popup-icon {
+  margin-bottom: 12px;
+  animation: cookie-pop 1.2s cubic-bezier(.68,-0.55,.27,1.55) both;
+}
+@keyframes cookie-pop {
+  0% { transform: scale(0.7) rotate(-20deg);}
+  60% { transform: scale(1.15) rotate(10deg);}
+  100% { transform: scale(1) rotate(0);}
+}
+.cookie-popup-text {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.cookie-popup-text strong {
+  font-size: 1.18em;
+  color: #0a3d62;
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+.cookie-popup-text p {
+  color: #555;
+  font-size: 1em;
+  margin: 0;
+  line-height: 1.5;
+}
+.cookie-popup-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  width: 100%;
+  justify-content: space-between;
+}
+.cookie-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 9px 26px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(30,144,255,0.07);
+}
+.cookie-btn-yes {
+  background: #f6c177;
+  color: #fff;
+  margin-left: auto;
+  box-shadow: 0 2px 8px #f6c17744;
+}
+.cookie-btn-yes:hover {
+  background: #e9a94b;
+  color: #fff;
+}
+.cookie-btn-no {
+  background: #f0f8ff;
+  color: #1e90ff;
+  margin-right: auto;
+}
+.cookie-btn-no:hover {
+  background: #e3f2fd;
+  color: #0a3d62;
+}
+
+/* --- SPADAJĄCE CIASTECZKA --- */
+.falling-cookie {
+  position: fixed;
+  top: -40px;
+  z-index: 9998;
+  pointer-events: none;
+  width: 38px;
+  height: 38px;
+  opacity: 0.97;
+  filter: drop-shadow(0 2px 6px #f6c17755);
+}
+
+/* Nowa animacja z losowym obrotem */
+@keyframes cookie-fall-custom {
+  0% {
+    transform: translateY(0) rotate(var(--cookie-rotate-start, -10deg));
+    opacity: 0.97;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(var(--cookie-rotate-end, 40deg));
+    opacity: 0.2;
+  }
+}
+
+/* --- POPUP Z CIASTECZKAMI PRAWA STRONA --- */
+.cookie-popup-right {
+  left: auto !important;
+  right: 32px !important;
+  bottom: 110px !important; /* nad przyciskami */
+}
+
+/* ----- Karta Kontaktowa - Wersja Ostateczna ----- */
+.contact-card {
+  overflow: visible;
+  width: 390px;
+  height: 354px;
+  margin: 0 auto 28px auto;
+  box-shadow: none;
+  background: transparent;
+  padding: 0;
+  border: none;
+  perspective: 1000px;
+}
+
+.contact-card .content {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  box-shadow: none;
+  border-radius: 8px;
+  background: transparent;
+  padding: 0;
+  position: relative;
+}
+
+.contact-card .front, 
+.contact-card .back {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, #0d4b7a 100%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  overflow: hidden;
+   border: 2px solid var(--secondary-blue); /* Wyraźniejsza ramka */
+  box-shadow: 0 4px 16px rgba(10, 61, 98, 0.3);
+  top: 0;
+  left: 0;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* TYLNA STRONA TERAZ JEST DOMYŚLNIE WIDOCZNA */
+.contact-card .front {
+  transform: rotateY(180deg); /* Front schowany na starcie */
+}
+
+.contact-card .front .front-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(10, 61, 98, 0.9) 0%, rgba(13, 75, 122, 0.9) 100%);
+}
+
+.contact-card .front-content .badge {
+  background-color: rgba(30, 144, 255, 0.3); /* Półprzezroczysty niebieski */
+  padding: 2px 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
+  width: fit-content;
+  color: white;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+.contact-card .back {
+  transform: rotateY(0deg); /* Back widoczny na starcie */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-card .back::before {
+  position: absolute;
+  content: ' ';
+  display: block;
+  width: 160px;
+  height: 1160%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--secondary-blue), /* #1e90ff */
+    var(--light-blue),    /* #87cefa */
+    var(--secondary-blue),
+    transparent);
+  animation: rotation_481 5000ms infinite linear;
+}
+
+.contact-card .back-content {
+  position: absolute;
+  width: 99%;
+  height: 99%;
+  background-color: #0a3d62;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Obracanie na hover - teraz pokazuje przód */
+.contact-card:hover .content {
+  transform: rotateY(-180deg);
+}
+
+/* Sekcja kontaktów - front */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.contact-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--secondary-blue);
+  padding: 10px 12px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  background: rgba(30, 144, 255, 0.2);
+  transform: translateX(5px);
+}
+
+.contact-icon {
+  margin-right: 10px;
+  color: var(--light-blue);
+  font-size: 1.2em;
+  width: 20px;
+  text-align: center;
+}
+
+.contact-label {
+  font-size: 0.9em;
+  color: var(--light-blue);
+  margin-bottom: 2px;
+}
+
+.contact-value {
+  font-size: 0.95em;
+  color: white;
+  word-break: break-all;
+}
+
+/* Sekcja tytułowa */
+.contact-header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.contact-title {
+  color: var(--light-blue);
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
+
+.contact-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9em;
+}
+
+/* Elementy dekoracyjne */
+.contact-card .circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: var(--secondary-blue);
+  position: absolute;
+  filter: blur(25px);
+  animation: floating 2600ms infinite linear;
+  opacity: 0.3;
+}
+
+.contact-card #bottom {
+  background-color: var(--primary-blue);
+  left: 50px;
+  top: 0px;
+  width: 150px;
+  height: 150px;
+  animation-delay: -800ms;
+}
+
+.contact-card #right {
+  background-color: var(--light-blue);
+  left: 160px;
+  top: -80px;
+  width: 30px;
+  height: 30px;
+  animation-delay: -1800ms;
+}
+
+/* Animacje */
+@keyframes rotation_481 {
+  0% { transform: rotateZ(0deg); }
+  100% { transform: rotateZ(360deg); }
+}
+
+@keyframes floating {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Styl nagłówka Kontakt na back karty kontaktowej, jak inne nagłówki sekcji */
+.contact-back-title {
+  color: var(--text-color-light);
+  border-bottom: 2px solid var(--secondary-blue);
+  padding-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 1.35em;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  background: none;
+  box-shadow: none;
+  letter-spacing: 0.2px;
+  width: 95%;
+  margin: auto;
+  text-align: center;
+  justify-content: flex-start;
+}
+
+/* --- Kontakt: klikalny telefon i email --- */
+.contact-value a {
+  color: #fff;
+  text-decoration: underline;
+  word-break: break-all;
+  transition: color 0.2s;
+}
+.contact-value a:hover {
+  color: var(--secondary-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* --- PRINT STYLES: CV na 2 strony, bez animacji, lewa i prawa kolumna obok siebie --- */
+@media print {
+  html, body {
+    background: #fff !important;
+    color: #222 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 13.5px !important;
+    line-height: 1.3 !important;
+    box-shadow: none !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: visible !important;
+    margin-left: 1mm !important;
+    margin-right: 1mm !important;
+  }
+  body * {
+    box-shadow: none !important;
+    background: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .geometric-background,
+  .particles,
+  .gradient-overlay,
+  #scrollToTopBtn,
+  #printBtn,
+  #cookie-popup,
+  .pointer-click-anim,
+  .profile-pointer-anim,
+  .click-hint {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  .cv-container {
+    display: flex !important;
+    flex-direction: row-reverse !important; /* main-content po lewej, sidebar po prawej */
+    max-width: none !important;
+    width: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    height: auto !important;
+  }
+  .sidebar {
+    flex: 0 0 38% !important;
+    max-width: 38% !important;
+    min-width: 200px !important;
+    background: #0a3d62 !important;
+    color: #fff !important;
+    border-radius: 0 !important;
+    padding: 18px 12px 12px 18px !important;
+    box-shadow: none !important;
+    page-break-inside: avoid !important;
+  }
+  .main-content {
+    flex: 1 1 62% !important;
+    max-width: 62% !important;
+    background: #fff !important;
+    color: #222 !important;
+    border-radius: 0 !important;
+    padding: 18px 18px 12px 18px !important;
+    box-shadow: none !important;
+    page-break-inside: avoid !important;
+  }
+  .profile-section {
+    background: #0a3d62 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin-bottom: 18px !important;
+    padding: 12px 8px 12px 8px !important;
+    page-break-inside: avoid !important;
+  }
+  .profile-pic {
+    width: 160px !important;
+    height: 160px !important;
+    margin-bottom: 1px !important;
+    border: 3px solid #1e90ff !important;
+    box-shadow: none !important;
+  }
+  .contact-card,
+  .contact-card .front,
+  .contact-card .back {
+    border: none !important;
+    box-shadow: none !important;
+    background: #0a3d62 !important;
+    color: #fff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .contact-card .front,
+  .contact-card .back {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    backface-visibility: visible !important;
+  }
+  .contact-card .content {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    background: #0a3d62 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+  .contact-card .back-content {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    background: #0a3d62 !important;
+    border-radius: 0 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    gap: 10px !important;
+  }
+  .contact-back-title {
+    color: #fff !important;
+    border-bottom: 2px solid #1e90ff !important;
+    padding-bottom: 6px !important;
+    margin-top: 0 !important;
+    margin-bottom: 10px !important;
+    font-size: 1.1em !important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+  .contact-item {
+    background: none !important;
+    border-left: 3px solid #1e90ff !important;
+    padding: 6px 8px !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin-bottom: 6px !important;
+  }
+  .contact-label, .contact-value {
+    color: #fff !important;
+  }
+  .contact-title, .contact-subtitle {
+    color: #87cefa !important;
+  }
+  .contact-icon {
+    color: #87cefa !important;
+  }
+  .contact-card .circle,
+  .contact-card #bottom,
+  .contact-card #right,
+  .contact-card .front-content .badge {
+    display: none !important;
+  }
+  .about-me.card, .skills.card, .interests.card, .references, .education, .experience {
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #222 !important;
+    border-radius: 0 !important;
+    padding: 10px 0 0 0 !important;
+    margin: 0 0 10px 0 !important;
+    page-break-inside: avoid !important;
+  }
+  .main-content .card, .timeline-item.card, .reference-item.card {
+    background: #f0f8ff !important;
+    color: #222 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border: none !important;
+    padding: 10px 10px 10px 16px !important;
+    margin-bottom: 10px !important;
+    page-break-inside: avoid !important;
+  }
+  .timeline-item.card::before,
+  .timeline-item.card::after {
+    display: none !important;
+  }
+  .timeline {
+    margin-left: 0 !important;
+  }
+  .timeline-item h4 {
+    color: #0a3d62 !important;
+    font-size: 1em !important;
+    margin-bottom: 4px !important;
+  }
+  .company-date {
+    color: #555 !important;
+    font-size: 0.95em !important;
+    margin-bottom: 6px !important;
+  }
+  .reference-list {
+    gap: 8px !important;
+  }
+  .reference-item.card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    border-left: 3px solid #1976d2 !important;
+    padding: 8px 8px 10px 12px !important;
+    margin: 0 0 8px 0 !important;
+  }
+  .reference-item.card strong {
+    color: #1976d2 !important;
+    font-size: 1em !important;
+  }
+  .reference-item .reference-position {
+    color: #1976d2 !important;
+    background: #e3f2fd !important;
+    font-size: 0.95em !important;
+    margin-bottom: 3px !important;
+  }
+  .reference-item .reference-email {
+    color: #fff !important;
+    background: #1976d2 !important;
+    border: 1px solid #1565c0 !important;
+    font-size: 0.93em !important;
+    margin-top: 2px !important;
+    margin-bottom: 0 !important;
+    padding: 2px 8px !important;
+  }
+  .clause {
+    color: #555 !important;
+    font-size: 0.85em !important;
+    margin-top: 12px !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+  }
+  footer {
+    border-top: 1px solid #dee2e6 !important;
+    margin-top: 10px !important;
+    padding-top: 8px !important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+  h1, h2, h3, h4 {
+    color: #0a3d62 !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  /* Zmniejsz odstępy */
+  h1, h2, h3, h4, p, ul, li {
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+  }
+  /* Zmieść całość na max 2 strony */
+  html, body {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+  .cv-container {
+    page-break-after: always !important;
+    page-break-inside: avoid !important;
+  }
+  /* Unikaj łamania sekcji w połowie */
+  .sidebar, .main-content, .about-me.card, .skills.card, .interests.card, .references, .education, .experience {
+    page-break-inside: avoid !important;
+  }
+}
+
+/* PRZYKŁAD: Ukrywanie dowolnej sekcji przy drukowaniu */
+/* Dodaj klasę .no-print do dowolnego elementu/sekcji, którą chcesz ukryć podczas drukowania */
+@media print {
+  .no-print {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  .name-title {
+    display: block !important;
+    color: #0a3d62 !important;
+    font-size: 1.7em !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    margin-bottom: 8px !important;
+    text-align: center !important;
+  }
+  .job-subtitle {
+    display: block !important;
+    color: #87cefa !important;
+    font-size: 1.1em !important;
+    font-weight: 400 !important;
+    opacity: 1 !important;
+    margin-top: 0 !important;
+    text-align: center !important;
+  }
+  /* Upewnij się, że podkategorie umiejętności są widoczne */
+  .skills h4 {
+    display: block !important;
+    color: #0a3d62 !important;
+    font-size: 1em !important;
+    font-weight: 600 !important;
+    margin: 0.5em 0 0.2em 0 !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+  }
+  .skills ul {
+    display: block !important;
+    padding-left: 18px !important;
+    margin: 0 0 10px 0 !important;
+    list-style: none !important;
+    opacity: 1 !important;
+  }
+  .skills ul li {
+    color: #222 !important;
+    font-size: 1em !important;
+    font-weight: 500 !important;
+    opacity: 1 !important;
+    margin-bottom: 4px !important;
+    padding-left: 16px !important;
+    position: relative !important;
+  }
+  .skills ul li::before {
+    content: "" !important;
+    display: inline-block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0.55em !important;
+    width: 7px !important;
+    height: 7px !important;
+    background: #1e90ff !important;
+    border-radius: 50% !important;
+  }
+  .interests.card p,
+  .interests.card ul,
+  .interests.card li {
+    padding-left: 10px !important;
+    margin-left: 0 !important;
+    box-sizing: border-box !important;
+    word-break: break-word !important;
+  }
+  .about-me.card p,
+  .about-me.card ul,
+  .about-me.card li {
+    padding-left: 10px !important;
+    margin-left: 0 !important;
+    box-sizing: border-box !important;
+    word-break: break-word !important;
+  }
+  .interests.card ul {
+    list-style: none !important;
+  }
+  .interests.card li {
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 6px !important;
+  }
+  .interests.card li span {
+    margin-right: 6px !important;
+  }
+}
+@media print {
+  .sidebar {
+    /* ...existing code... */
+    background: #0a3d62 !important;
+    color: #fff !important;
+  }
+  .sidebar section.card,
+  .about-me.card,
+  .skills.card,
+  .interests.card {
+    background: rgba(255,255,255,0.08) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    border-left: 4px solid #1e90ff !important;
+    box-shadow: none !important;
+    padding: 14px 12px 10px 18px !important;
+    margin-bottom: 12px !important;
+  }
+  .about-me.card h3,
+  .skills.card h3,
+  .interests.card h3 {
+    color: #fff !important;
+    border-bottom: 2px solid #87cefa !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 12px !important;
+  }
+  .skills h4 {
+    color: #87cefa !important;
+  }
+  .skills ul li,
+  .about-me.card p,
+  .interests.card p,
+  .interests.card li {
+    color: #fff !important;
+  }
+}
+@media print {
+  .name-title {
+    color: #fff !important;
+    font-size: 1.7em !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    margin-bottom: 8px !important;
+    text-align: center !important;
+  }
+  .contact-info-card.card h3 {
+    color: #fff !important;
+  }
+  #print-qr-info {
+    display: block !important;
+    position: static !important;
+    margin: 36px auto 0 auto !important;
+    width: 120px !important;
+    text-align: center !important;
+    font-size: 8.5px !important;
+    color: #555 !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    page-break-before: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  #print-qr-info img {
+    width: 60px !important;
+    height: 60px !important;
+    display: block !important;
+    margin: 0 auto 2px auto !important;
+    background: #fff !important;
+    border: 1px solid #eee !important;
+    border-radius: 8px !important;
+    box-shadow: 0 1px 4px #0001 !important;
+  }
+  #print-qr-info .qr-desc {
+    background: #fff !important;
+    color: #222 !important;
+    border-radius: 6px !important;
+    padding: 6px 4px 4px 4px !important;
+    margin-top: 4px !important;
+    font-size: 8.5px !important;
+    line-height: 1.3 !important;
+    box-shadow: 0 1px 4px #0001 !important;
+    display: block !important;
+  }
+}
+/* Domyślnie ukryj QR na ekranie */
+#print-qr-info {
+  display: none;
+}
+@media print {
+  .contact-info-card.card a,
+  .contact-value a {
+    text-decoration: none !important;
+    color: #fff !important;
+  }
+}
+
+/* ----- Tylko do druku ----- */
+.only-print {
+  display: none !important;
+}
+@media print {
+  .only-print {
+    display: block !important;
+  }
+}
+
+
