@@ -1,25 +1,10 @@
 /* Dodajemy na początku pliku style dla dostępności */
 :root {
-    /* Główna paleta niebieskich odcieni */
-    --primary-blue: #0a3d62;   
-    --secondary-blue: #1e90ff; 
-    --light-blue: #87cefa;    
-    --pale-blue-bg: #f0f8ff;  
-
-    /* Kolory tekstu */
-    --text-color-dark: #333333;
-    --text-color-light: #f8f9fa;
-    --text-color-medium: #555555;
-
-    /* Inne */
-    --bg-color-main: #ffffff;      
-    --bg-color-page: #e9ecef;    
-    --border-color: #dee2e6;
-    --card-shadow: 0 6px 18px rgba(0, 50, 100, 0.12);
-    --card-shadow-hover: 0 8px 25px rgba(0, 50, 100, 0.18);
+    /* Istniejące zmienne */
+    /* ... */
     
     /* Nowe zmienne dla dostępności */
-    --focus-outline: 3px solid var(--secondary-blue);
+    --focus-outline: 3px solid #1e90ff;
 }
 
 /* Poprawiony focus dla wszystkich interaktywnych elementów */
@@ -40,4 +25,4 @@ button:focus {
 }
 
 /* Reszta istniejących styli pozostaje bez zmian */
-[... Reszta kodu pozostaje bez zmian ...]
+/* ... */
